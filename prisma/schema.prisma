@@ -1,13 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model admin {
+  id          Int        @id @default(autoincrement())
+  username    String     @unique(map: "Admin_username_key")
+  password    String
+  role        admin_role @default(ADMIN)
+  createdById Int?
+  name        String
+  admin       admin?     @relation("adminToadmin", fields: [createdById], references: [id], map: "Admin_createdById_fkey")
+  other_admin admin[]    @relation("adminToadmin")
+  log         log[]
+
+  @@index([createdById], map: "Admin_createdById_fkey")
 }
 
-model Client {
+model appointment {
+  id             Int          @id @default(autoincrement())
+  clientId       Int          @unique(map: "Appointment_clientId_key")
+  WorkingHoursId Int          @unique(map: "Appointment_WorkingHoursId_key")
+  link           String       @unique(map: "Appointment_link_key") @default(cuid())
+  workinghours   workinghours @relation(fields: [WorkingHoursId], references: [id], map: "Appointment_WorkingHoursId_fkey")
+  client         client       @relation(fields: [clientId], references: [id], map: "Appointment_clientId_fkey")
+  payment        payment?
+}
+
+model client {
   id          Int          @id @default(autoincrement())
   firstName   String
   lastName    String
@@ -17,72 +41,50 @@ model Client {
   wilaya      String
   ipAddress   String?
   createdAt   DateTime     @default(now())
-  appointment Appointment?
+  appointment appointment?
 }
 
-model Admin {
-  id            Int       @id @default(autoincrement())
-  username      String    @unique
-  password      String
-  name          String
-  role          AdminRole @default(ADMIN)
-  createdById   Int?
-  createdBy     Admin?    @relation("AdminCreatedBy", fields: [createdById], references: [id])
-  createdAdmins Admin[]   @relation("AdminCreatedBy")
-  logs          Log[]
-}
-
-model Log {
+model log {
   id        Int      @id @default(autoincrement())
   action    String
   ipAddress String
   timestamp DateTime @default(now())
   adminId   Int
-  admin     Admin    @relation(fields: [adminId], references: [id])
+  admin     admin    @relation(fields: [adminId], references: [id], map: "Log_adminId_fkey")
+
+  @@index([adminId], map: "Log_adminId_fkey")
 }
 
-model Appointment {
-  id              Int          @id @default(autoincrement())
-  clientId        Int          @unique
-  client          Client       @relation(fields: [clientId], references: [id])
-  payment         Payment?
-  WorkingHoursId  Int          @unique
-  dateReservation WorkingHours @relation(fields: [WorkingHoursId], references: [id])
-  link            String       @unique @default(cuid())
-}
-
-model WorkingHours {
-  id        Int             @id @default(autoincrement())
-  date      DateTime        @db.Date
-  startTime DateTime        @db.Time()
-  type      AppointmentType
-
-  duration Int
-
-  appointments Appointment?
-}
-
-model Payment {
-  id            Int           @id @default(autoincrement())
+model payment {
+  id            Int                   @id @default(autoincrement())
   amount        Float
+  paymentMethod payment_paymentMethod
+  appointmentId Int                   @unique(map: "Payment_appointmentId_key")
   payed         Float
-  recite        Bytes?        @db.Blob
-  paymentMethod PaymentMethod
-  appointmentId Int           @unique
-  appointment   Appointment   @relation(fields: [appointmentId], references: [id])
+  recite        Bytes?                @db.Blob
+  appointment   appointment           @relation(fields: [appointmentId], references: [id], map: "Payment_appointmentId_fkey")
 }
 
-enum AdminRole {
+model workinghours {
+  id          Int               @id @default(autoincrement())
+  date        DateTime          @db.Date
+  startTime   DateTime          @db.Time(0)
+  type        workinghours_type
+  duration    Int
+  appointment appointment?
+}
+
+enum payment_paymentMethod {
+  CCPBaridiMob
+  OnSite
+}
+
+enum admin_role {
   OWNER
   ADMIN
 }
 
-enum AppointmentType {
+enum workinghours_type {
   InPerson
   Online
-}
-
-enum PaymentMethod {
-  CCPBaridiMob
-  OnSite
 }

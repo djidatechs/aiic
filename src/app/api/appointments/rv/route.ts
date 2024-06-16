@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
                     lastName : true
                 }
             },
-            dateReservation:{
+            workinghours:{
                 select:{
                     date:true,
                     type:true,
@@ -33,12 +33,10 @@ export async function GET(req: NextRequest) {
           }
         });
         console.log({appointment})
-        await prisma.$disconnect();
-
+        
         return NextResponse.json({ success: true, appointment });
     } catch (error) {
-        await prisma.$disconnect();
-        console.error("Error creating appointment:", error);
+                console.error("Error creating appointment:", error);
         return NextResponse.json({ success: false, error: error }, { status: 500 });
     }
 }

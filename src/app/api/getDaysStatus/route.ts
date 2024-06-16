@@ -1,5 +1,5 @@
 // pages/api/getDaysStatus.ts
-import { PrismaClient, AppointmentType } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 
 const prisma = new PrismaClient();
@@ -7,10 +7,10 @@ const prisma = new PrismaClient();
 export const GET = async () => {
   try {
     // Fetch all working hours
-    const workingHours = await prisma.workingHours.findMany({
+    const workingHours = await prisma.workinghours.findMany({
       include: {
         
-        appointments: {
+        appointment: {
           include: {
             client: true,
             payment: true,
@@ -20,7 +20,7 @@ export const GET = async () => {
     });
     // Initialize sets to store date strings
    
-
+    console.log("hi",{workingHours})
     const filledDays = [];
     const filledNoPaymentDays = [];
     const availableDays = [];
@@ -78,14 +78,16 @@ export const GET = async () => {
       allowed_days: availableDays,
     };
     
-    await prisma.$disconnect();
+     
     return Response.json(res , {status:200});
     
 
 
 
   } catch (error) {
-    await prisma.$disconnect();
+    console.log(error)
+ 
+     
     return  Response.json({ error: 'Failed to fetch days status' },{status:500});
   } 
 };

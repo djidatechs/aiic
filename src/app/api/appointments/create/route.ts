@@ -31,10 +31,11 @@ export async function POST(req: NextRequest) {
         });
 
         // Create the appointment record
-        const appointment = await prisma.appointment.create({
+        const appointment = await prisma.appointment .create({
             data: {
                 clientId: client.id,
                 WorkingHoursId: validatedData.WorkingHour, // assuming a valid WorkingHours ID
+                
             },
         });
 
@@ -51,10 +52,8 @@ export async function POST(req: NextRequest) {
         }
 
         // Respond with the created appointment
-        await prisma.$disconnect();
-        return NextResponse.json({ success: true, appointment });
+                return NextResponse.json({ success: true, appointment });
     } catch (error) {
-        await prisma.$disconnect();
-        return NextResponse.json({ success: false, error: error }, { status: 500 });
+                return NextResponse.json({ success: false, error: error }, { status: 500 });
     }
 }

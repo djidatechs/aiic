@@ -27,7 +27,7 @@ export default function Home({ params }: { params: { link: string } }) {
 
         // Update state with fetched data
         if (data.success && data.appointment) {
-          const { date, type, startTime } = data.appointment.dateReservation;
+          const { date, type, startTime } = data.appointment.workinghours;
           setAppointmentDate(toLocalISOString(new Date(date)));
           setAppointmentHour(new Date(startTime).toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'))
           setAppointmentType(type);

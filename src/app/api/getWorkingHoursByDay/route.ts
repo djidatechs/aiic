@@ -15,7 +15,7 @@ export const GET = async (req: Request) => {
   
 
     // Fetch working hours for the specified date
-    const workingHours = await prisma.workingHours.findMany({
+    const workingHours = await prisma.workinghours.findMany({
       where: {
         date: {
           gte: new Date(`${date}T00:00:00.000Z`),
@@ -23,7 +23,7 @@ export const GET = async (req: Request) => {
         },
       },
       include: {
-        appointments: {
+        appointment: {
           include: {
             client: true,
             payment: true,
@@ -38,9 +38,9 @@ export const GET = async (req: Request) => {
       startTime: wh.startTime.toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
       type: wh.type,
       duration: wh.duration,
-      available: wh.appointments == undefined,
-      confirmed : wh.appointments && wh.appointments.payment ? 
-      wh.appointments.payment.recite != null || wh.appointments.payment?.payed !=0
+      available: wh.appointment == undefined,
+      confirmed : wh.appointment && wh.appointment.payment ? 
+      wh.appointment.payment.recite != null || wh.appointment.payment?.payed !=0
       : false
     })})
 
@@ -51,11 +51,9 @@ export const GET = async (req: Request) => {
     });
 
 
-    await prisma.$disconnect();
-    return new Response(JSON.stringify(res), { status: 200 });
+        return new Response(JSON.stringify(res), { status: 200 });
   } catch (error) {
-    await prisma.$disconnect();
-    return new Response(JSON.stringify({ error: 'Failed to fetch working hours' }), { status: 500 });
+        return new Response(JSON.stringify({ error: 'Failed to fetch working hours' }), { status: 500 });
   }
 };
 
