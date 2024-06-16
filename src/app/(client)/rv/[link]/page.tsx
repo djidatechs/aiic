@@ -23,7 +23,6 @@ export default function Home({ params }: { params: { link: string } }) {
         }
 
         const data = await response.json();
-        console.log(data); // Ensure data structure matches what your API returns
 
         // Update state with fetched data
         if (data.success && data.appointment) {

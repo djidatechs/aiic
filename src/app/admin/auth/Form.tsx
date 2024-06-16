@@ -34,7 +34,6 @@ const SignInForm = () => {
         email: values.username,
         password: values.password,
       });
-      console.log(result)
       if (!result?.ok) {
         toast({
           className: "bg-red-600 text-white text-md font-medium",
@@ -49,7 +48,6 @@ const SignInForm = () => {
         router.push("/admin");
         router.refresh();
       }
-      console.log(result);
     } catch (error) {
       toast({
         className: "bg-red-600 text-white text-md font-medium",

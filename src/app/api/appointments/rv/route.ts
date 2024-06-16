@@ -32,7 +32,6 @@ export async function GET(req: NextRequest) {
             }
           }
         });
-        console.log({appointment})
         
         return NextResponse.json({ success: true, appointment });
     } catch (error) {

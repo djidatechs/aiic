@@ -49,6 +49,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
   const [daysStatus, setDaysStatus] = useState<DaysStatus>({ filled_days: [], maybe_filled_days: [], allowed_days: [] });
   const [workingHours, setWorkingHours] = useState<WorkingHour[]>([]);
   const [loading, setLoading] = useState<boolean>(false); // Loading state
+  const [day_loading, setday_Loading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
     // Fetch the status of all days
@@ -64,6 +65,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
           allowed_days: days_arr[2],
         };
         setDaysStatus(days);
+        setday_Loading(false);
       } catch (error) {
         console.error(error);
       }
@@ -138,7 +140,9 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
             </div>
 
             <FormItem className="order-2 flex flex-col mx-auto md:w-5/12">
+              {day_loading ? <p className='font-semibold'>chargement en cours ...</p> : <></>}
               <FormControl>
+                
                 <Calendar
                   selectedDay={selectedDay}
                   filled_days={daysStatus.filled_days.map(date => new Date(date))}
