@@ -15,15 +15,16 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user?.id) token.id = user.id;
-      if (user?.name) token.name = user?.name;
-      if (user?.isAdmin) token.isAdmin = user?.isAdmin;
+      if (user?.name) token.name = user.name;
+      if (user?.isAdmin) token.isAdmin = user.isAdmin;
       return token;
     },
 
     async session({ session, token }: { session: any; token: any }) {
-      if (token?.id) session.user.id = token.id;
-      if (token?.name) session.user.name = token.name;
-      if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
+      session.admin = {}; // Ensure session.admin is defined
+      if (token?.id) session.admin.id = token.id;
+      if (token?.name) session.admin.name = token.name;
+      if (token?.isAdmin) session.admin.isAdmin = token.isAdmin;
       return session;
     },
   },
@@ -34,22 +35,25 @@ export const authOptions = {
       credentials: {},
       //@ts-ignore
       async authorize(credentials, req) {
-        const { email, password } = credentials as {
+        const { email: username, password } = credentials as {
           email: string;
           password: string;
         };
-        const user = await prisma.user.findFirst({
-          where: { email },
+
+        const admin = await prisma.admin.findFirst({
+          where: { username: username },
         });
-        if (user && bcrypt.compareSync(password, user.password)) {
+
+        if (admin && bcrypt.compareSync(password, admin.password)) {
           return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
+            id: admin.id,
+            name: admin.name,
+            username: admin.username,
+            isAdmin: admin.role === "ADMIN" || admin.role === "OWNER",
+            isOwner: admin.role === "OWNER",
           };
         }
-        throw new Error("Invalid Email or Password");
+        throw new Error("Invalid Username or Password");
       },
     }),
   ],

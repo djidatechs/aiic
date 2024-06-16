@@ -1,80 +1,88 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
 
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+model Client {
+  id          Int          @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  age         Int
+  phoneNumber String
+  email       String?
+  wilaya      String
+  ipAddress   String?
+  createdAt   DateTime     @default(now())
+  appointment Appointment?
 }
 
-model User {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  mobile String
-  password String
-  isAdmin Boolean
-  tours Tour[]
-  reviews Review[]
-  reservation Reservation[]
-
-  createdAt DateTime @default(now())
+model Admin {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique
+  password      String
+  name          String
+  role          AdminRole @default(ADMIN)
+  createdById   Int?
+  createdBy     Admin?    @relation("AdminCreatedBy", fields: [createdById], references: [id])
+  createdAdmins Admin[]   @relation("AdminCreatedBy")
+  logs          Log[]
 }
 
-model Tour {
-  id Int @id @default(autoincrement())
-  slug String
-  title String
-  body String
-  checkIn DateTime
-  checkOut DateTime
-  guests Int
-  pricePerNight Float
-  feauturedImage String
-  gallery Gallery[]
-  reviews Review[]
-  reservation Reservation[]
-
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-
-  createdAt DateTime @default(now())
+model Log {
+  id        Int      @id @default(autoincrement())
+  action    String
+  ipAddress String
+  timestamp DateTime @default(now())
+  adminId   Int
+  admin     Admin    @relation(fields: [adminId], references: [id])
 }
 
-model Gallery {
-  id Int @id @default(autoincrement())
-  image String
-  title String
-
-  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
-  tourId Int
+model Appointment {
+  id              Int          @id @default(autoincrement())
+  clientId        Int          @unique
+  client          Client       @relation(fields: [clientId], references: [id])
+  payment         Payment?
+  WorkingHoursId  Int          @unique
+  dateReservation WorkingHours @relation(fields: [WorkingHoursId], references: [id])
+  link            String       @unique @default(cuid())
 }
 
-model Review {
-  id Int @id @default(autoincrement())
-  comment String
-  rating Int
+model WorkingHours {
+  id        Int             @id @default(autoincrement())
+  date      DateTime        @db.Date
+  startTime DateTime        @db.Time()
+  type      AppointmentType
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  duration Int
 
-  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
-  tourId Int
+  appointments Appointment?
 }
 
-model Reservation {
-  id Int @id @default(autoincrement())
-  name String
-  email String
-  mobile String
+model Payment {
+  id            Int           @id @default(autoincrement())
+  amount        Float
+  payed         Float
+  recite        Bytes?        @db.Blob
+  paymentMethod PaymentMethod
+  appointmentId Int           @unique
+  appointment   Appointment   @relation(fields: [appointmentId], references: [id])
+}
 
-  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
-  tourId Int
+enum AdminRole {
+  OWNER
+  ADMIN
+}
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+enum AppointmentType {
+  InPerson
+  Online
+}
+
+enum PaymentMethod {
+  CCPBaridiMob
+  OnSite
 }

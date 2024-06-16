@@ -73,4 +73,38 @@
   body {
     @apply bg-background text-foreground;
   }
+  .filled {
+    @apply bg-red-500 text-white cursor-none
+  }
+  
+  .maybeFilled {
+    @apply bg-orange-500 text-white cursor-none
+  }
+  
+  .allowed {
+    @apply bg-green-500 text-white  cursor-pointer hover:bg-green-600
+  }
+  
+  
 }
+
+
+/* Example CSS */
+.filled {
+  @apply bg-red-500 text-white
+}
+
+.maybeFilled {
+  @apply bg-orange-500 text-white
+}
+
+.allowed {
+  @apply bg-green-500 text-white
+}
+.allowed_online {
+  @apply bg-cyan-500 text-white
+}
+.selectedDay{
+  @apply bg-blue-700 scale-[110%]
+}
+
