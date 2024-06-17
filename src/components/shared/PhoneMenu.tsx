@@ -59,7 +59,7 @@ const PhoneMenu = () => {
         <DropdownMenuContent>
           <DropdownMenuGroup>
           <Fragment key={"acc"}>
-                <DropdownMenuItem>{t('Accuil')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('Accueil')}</DropdownMenuItem>
                 <DropdownMenuSeparator />
           </Fragment>
           <Fragment key={"faq"}>
