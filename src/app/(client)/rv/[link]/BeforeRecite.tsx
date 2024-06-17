@@ -1,3 +1,4 @@
+"use client"
 import { useState, ChangeEvent } from 'react';
 
 // Define the type for the props

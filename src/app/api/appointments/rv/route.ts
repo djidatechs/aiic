@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     try {
         const link = req.nextUrl.searchParams.get("link")
 
-        if (!link?.length) 
+        if (!link || ! link.length) 
         return NextResponse.json({ success: false, error: "wrong Zlink" }, { status: 500 });
 
 
@@ -32,6 +32,9 @@ export async function GET(req: NextRequest) {
             }
           }
         });
+
+        if (!appointment) 
+        return NextResponse.json({ success: false, error: "wrong Zlink" }, { status: 500 });
         
         return NextResponse.json({ success: true, appointment });
     } catch (error) {

@@ -26,6 +26,8 @@
     "date-fns": "^3.3.1",
     "draft-js": "^0.11.7",
     "embla-carousel-react": "^8.0.0-rc21",
+    "formidable": "^3.5.1",
+    "ftp": "^0.3.10",
     "i18next": "^23.11.5",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.5.2",
@@ -49,6 +51,8 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/formidable": "^3.4.5",
+    "@types/ftp": "^0.3.36",
     "@types/markdown-draft-js": "^2.2.7",
     "@types/node": "^20",
     "@types/react": "^18",

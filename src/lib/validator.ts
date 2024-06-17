@@ -34,3 +34,22 @@ export const signInFormSchema = z.object({
   password: z.string().min(1, "Requis"),
 });
 export type signInFormValues = z.infer<typeof signInFormSchema>;
+
+
+const MAX_FILE_SIZE = 5000000;
+function checkFileType(file: File) {
+    if (file?.name) {
+        const fileType = file.name.split(".").pop();
+        if (fileType === "jpg" || fileType === "png") return true;
+    }
+    return false;
+}
+
+
+export const fileSchema = z.object({
+  file : z.any()
+  .refine((file: File) => file?.size !== 0, "File is required")
+  .refine((file) => file.size < MAX_FILE_SIZE, "Max size is 5MB.")
+  .refine((file) => checkFileType(file), ".jpg ou .png"),
+  });
+  export type fileValues = z.infer<typeof fileSchema>;

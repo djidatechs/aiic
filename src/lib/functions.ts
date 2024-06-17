@@ -1,5 +1,5 @@
-function generateRandomString(length: number = 12): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export function generateRandomString(length: number = 12): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
@@ -7,6 +7,3 @@ function generateRandomString(length: number = 12): string {
     }
     return result;
 }
-
-// Example usage
-const randomString = generateRandomString(16);  // Generates a 16-character long string
