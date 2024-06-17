@@ -61,7 +61,7 @@ model payment {
   paymentMethod payment_paymentMethod
   appointmentId Int                   @unique(map: "Payment_appointmentId_key")
   payed         Float
-  recite        Bytes?                @db.Blob
+  recite_path   String?
   appointment   appointment           @relation(fields: [appointmentId], references: [id], map: "Payment_appointmentId_fkey")
 }
 
