@@ -10,4 +10,3 @@ function generateRandomString(length: number = 12): string {
 
 // Example usage
 const randomString = generateRandomString(16);  // Generates a 16-character long string
-console.log(randomString);

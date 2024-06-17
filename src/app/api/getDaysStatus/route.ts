@@ -20,7 +20,6 @@ export const GET = async () => {
     });
     // Initialize sets to store date strings
    
-    console.log("hi",{workingHours})
     const filledDays = [];
     const filledNoPaymentDays = [];
     const availableDays = [];
@@ -36,7 +35,6 @@ export const GET = async () => {
       acc[date].push(curr);
       return acc;
     }, {});
-    console.log({groupedByDate})
 
     // Process each grouped day
     for (const [date, hours] of Object.entries(groupedByDate)) {

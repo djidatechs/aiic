@@ -10,7 +10,7 @@ const Hero = async () => {
 
 
   return (
-    <section  className="bg-gradient-to-r from-white/95 to-red-100/5 py-8 sm:py-12" aria-labelledby="hero-heading">
+    <section  className="bg-white rounded-xl  py-8 sm:py-12" aria-labelledby="hero-heading">
       <div className="w-full max-w-7xl  lg:pl-12 mx-auto px-4 sm:px-6 md:px-8">
         <div  className="flex flex-col lg:flex-row lg:space-x-8">
           <div className={`order-3 px-4 lg:px-0 lg:order-1 max-w-xl lg:w-[48%] ${local=="ar"?"text-right":"lg:text-left"} `}>

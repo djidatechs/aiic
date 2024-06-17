@@ -9,7 +9,6 @@ export const LANGUAGE_COOKIE = 'fr';
 
 export function getOptions(lang = FALLBACK_LOCALE, ns = 'common'): InitOptions {
   return {
-    debug: true, // Set to true to see console logs
     supportedLngs: supportedLocales,
     fallbackLng: FALLBACK_LOCALE,
     lng: lang,

@@ -8,7 +8,7 @@ const Illustrations = async () => {
   const local = getLocale()
 
   return (
-    <section dir={`${local == 'ar' ? 'rtl' : 'ltr' }`} className={`bg-gradient-to-r from-white/95 to-red-100/5 py-8 sm:py-16`} aria-labelledby="hero-heading">
+    <section dir={`${local == 'ar' ? 'rtl' : 'ltr' }`} className={`bg-white rounded-xl py-8 sm:py-16`} aria-labelledby="hero-heading">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center flex-col md:flex-row md:space-x-8 items-center">
           <div className="flex-col my-4 md:my-0 space-y-4 w-full md:w-3/12">
