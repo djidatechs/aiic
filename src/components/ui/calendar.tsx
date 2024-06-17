@@ -59,6 +59,7 @@ function Calendar({
   }
 
   return (
+    <div className="scale-75 sm:scale-75 md:scale-100">
     <DayPicker
       showOutsideDays={showOutsideDays}
       locale={local_format[local]} // Set the locale to French
@@ -117,6 +118,7 @@ function Calendar({
       }}
       {...props}
     />
+    </div>
   );
 }
 
