@@ -1,0 +1,53 @@
+{
+    "heroHeading": "هل تحلم بالعمل",
+    "heroHighlight": "في كندا؟",
+    "appointmentPrompt": "حدد موعدًا من أجل",
+    "services": [
+      "مقابلة مساعد الهجرة والمرشد.",
+      "تحضير سيرتك الذاتية.",
+      "تحضير شهاداتك.",
+      "وضع خطة للهجرة.",
+      "تتبع الإجراءات التالية.",
+      "اقتراح نوع معالجة هجرتك."
+    ],
+    "serviceTitle": "المساعدة في الهجرة والاندماج في كندا",
+
+    "book_appointment": "احجز موعدًا عبر النموذج أدناه",
+    "submit_receipt": "قم بإيداع إيصال الدفع",
+    "in_person_price": "الحضور الشخصي: 3000 دينار جزائري أولية + 3000 دينار جزائري عند الموعد",
+    "online_price": "عبر الإنترنت: 6000 دينار جزائري",
+    "attend_appointment": "حضور الموعد",
+
+    "processing_appointment": "جارٍ معالجة موعدك...",
+    "appointment_success": "تم إنشاء الموعد بنجاح",
+    "appointment_error": "حدث خطأ أثناء إنشاء الموعد",
+    "oops": "عذرًا!",
+    "last_name": "اللقب",
+    "first_name": "الاسم الأول",
+    "age": "العمر",
+    "phone_number": "رقم الهاتف",
+    "email": "البريد الإلكتروني",
+    "wilaya": "ولاية",
+    "select_wilaya": "اختر ولاية",
+    "initial_payment_method": "طريقة الدفع الأولية",
+    "payment_method": "طريقة الدفع",
+    "on_site": "في الموقع (شخصيًا)",
+    "ccp_baridi_mob": "CCP / باريدي موب",
+    "reservation": "الحجز",
+    "additional_info": "معلومات إضافية (اختياري، بحد أقصى 200 حرف)",
+    "additional_info_placeholder": "إذا كنت ترغب في إضافة معلومات إضافية، يمكنك إضافتها هنا.",
+    "book": "احجز",
+
+    "no_selected_date": "لم يتم تحديد تاريخ",
+
+    "disponible": "متاح",
+    "en_ligne_seulement": "على الشبكة فقط (مكالمة بصرية)",
+    "pris_sans_confirmation": "محجوز بدون تأكيد",
+    "pris": "محجوز",
+    "still_loading" : "...جاري التحميل",
+    "online": "على الشبكة",
+
+    "Accuil" : "الرئيسية",
+    "Contact" : "راسلنا"
+  }
+  

@@ -1,0 +1,56 @@
+{
+    "heroHeading": "Do you dream of working",
+    "heroHighlight": "in Canada?",
+    "appointmentPrompt": "Schedule an appointment for",
+    "services": [
+      "Meet the immigration assistant and guide.",
+      "Prepare your CV.",
+      "Prepare your diplomas.",
+      "Mapping out an immigration plan.",
+      "Mapping out the next procedures.",
+      "Proposing the type of treatment for your immigration."
+    ],
+    "serviceTitle": "Immigration and Integration Assistance in Canada",
+
+    
+    "book_appointment": "Book an appointment via the form below",
+    "submit_receipt": "Submit the payment receipt",
+    "in_person_price": "In-person: 3000DA initial + 3000DA at the appointment",
+    "online_price": "Online: 6000DA",
+    "attend_appointment": "Attend the appointment",
+
+
+    
+      "processing_appointment": "Processing your appointment...",
+  "appointment_success": "Appointment successfully created",
+  "appointment_error": "Error creating the appointment",
+  "oops": "Oops!",
+  "last_name": "Last Name",
+  "first_name": "First Name",
+  "age": "Age",
+  "phone_number": "Phone Number",
+  "email": "Email",
+  "wilaya": "Wilaya",
+  "select_wilaya": "Select a wilaya",
+  "initial_payment_method": "Initial Payment Method",
+  "payment_method": "Payment Method",
+  "on_site": "On-site (In-person)",
+  "ccp_baridi_mob": "CCP / BARIDI MOB",
+  "reservation": "Reservation",
+  "additional_info": "Additional Information (optional, 200 characters max)",
+  "additional_info_placeholder": "If you wish to add additional information, you can add it here.",
+  "book": "Book",
+
+  "no_selected_date": "No date selected yet.",
+
+  "disponible": "Available",
+  "en_ligne_seulement": "Online Only",
+  "pris_sans_confirmation": "Taken Without Confirmation",
+  "pris": "Taken",
+  "still_loading":"Still loading ...",
+  "online": "Online",
+
+  "Accuil" : "Home",
+  "Contact" : "Contact"
+  }
+  

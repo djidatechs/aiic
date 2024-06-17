@@ -5,7 +5,9 @@ import { Calendar } from "@/components/ui/calendar";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Label } from "@radix-ui/react-label";
 import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { fr, enUS , arDZ } from 'date-fns/locale';
+import { useLocale } from '../hooks/local';
+import { useTranslation } from '@/lib/i18n/client';
 
 // Skeleton component for loading state
 const SkeletonLoader = () => {
@@ -50,7 +52,14 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
   const [workingHours, setWorkingHours] = useState<WorkingHour[]>([]);
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [day_loading, setday_Loading] = useState<boolean>(true); // Loading state
+  const {t} = useTranslation("common")
+  const local = useLocale()
 
+  const local_format = {
+    ar: arDZ,
+    fr,
+    en : enUS
+  }
   useEffect(() => {
     // Fetch the status of all days
     const fetchDaysStatus = async () => {
@@ -118,29 +127,30 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
         control={form.control}
         name={name}
         render={({ field }) => (
-          <div className="lg:flex md:justify-center">
+          <div className="lg:flex md:justify-center" dir="ltr">
             <div className="order-1 flex flex-col">
-              <Label className="text-lg py-2 mt-2">Réservation</Label>
+              <Label className="text-lg py-2 mt-2">{t('reservation')}</Label>
               <p className="space-x-2 flex justify-between">
-                <strong className="text-green-500">Disponible</strong>
+                <strong className="text-green-500">{t('disponible')}</strong>
                 <span className="inline-block w-4 h-4 rounded-sm bg-green-500 ml-auto" />
               </p>
               <p className="space-x-2 flex justify-between">
-                <strong className="text-cyan-500">En ligne seulement</strong>
+                <strong className="text-cyan-500">{t('en_ligne_seulement')}</strong>
                 <span className="inline-block w-4 h-4 rounded-sm bg-cyan-500 ml-auto" />
               </p>
               <p className="space-x-2 flex justify-between">
-                <strong className="text-orange-500">Pris sans confirmation</strong>
+                <strong className="text-orange-500">{t('pris_sans_confirmation')}</strong>
                 <span className="inline-block w-4 h-4 rounded-sm bg-orange-500 ml-auto" />
               </p>
               <p className="space-x-2 flex justify-between">
-                <strong className="text-red-500">Pris</strong>
+                <strong className="text-red-500">{t('pris')}</strong>
                 <span className="inline-block w-4 h-4 rounded-sm bg-red-500 ml-auto" />
               </p>
             </div>
+    
 
             <FormItem className="order-2 flex flex-col mx-auto md:w-5/12">
-              {day_loading ? <p className='font-semibold'>chargement en cours ...</p> : <></>}
+              {day_loading ? <p className='font-semibold'>{t('still_loading')}</p> : <></>}
               <FormControl>
                 
                 <Calendar
@@ -158,7 +168,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
               <FormItem className="order-2 flex flex-col md:w-3/12">
                 <>
                   <FormLabel className="pb-6">
-                    {selectedDay ? format(selectedDay, 'PPPP', { locale: fr }) : 'Aucune date sélectionnée'}
+                    {selectedDay ? format(selectedDay, 'PPPP', { locale: local_format[local]   }) : t("no_selected_date")}
                     &nbsp;
                     {selectedTime && workingHours.find(wh => wh.id === selectedTime)?.startTime}
                   </FormLabel>
@@ -182,7 +192,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
                                 : wh.available ? "text-green-600"
                                   : wh.confirmed ? "text-red-600"
                                     : "text-orange-600"
-                            }>{wh.startTime} ({minutesToHoursMinutes(wh.duration)}) {wh.available && wh.type === "Online" ? "En ligne" : ""}</span>
+                            }>{wh.startTime} ({minutesToHoursMinutes(wh.duration)}) {wh.available && wh.type === "Online" ? t("online") : ""}</span>
                           </Label>
                         ))
                       )}

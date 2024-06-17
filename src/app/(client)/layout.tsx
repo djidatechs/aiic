@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/shared/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import {getLocale} from '@/lib/i18n/server';
+import {LocaleProvider} from '@/components/hooks/local';
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,13 +20,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = getLocale();
   return (
-    <html lang="fr">
+    <html lang={locale}>
       <body className={`bg-[#e0e3e7] ${inter.className}`}>
-        
+      <LocaleProvider value={locale}>
           <Navbar />
           {children}
           <Toaster />
+      </LocaleProvider>
         
       </body>
     </html>

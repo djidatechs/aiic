@@ -1,0 +1,56 @@
+{
+    
+    "heroHeading": "Vous rêvez de travailler",
+    "heroHighlight": "au Canada ?",
+    "appointmentPrompt": "Prenez un rendez-vous pour",
+    "services": [
+      "Rencontrer l'assistant d'immigration et le guide.",
+      "Préparer votre CV.",
+      "Préparer vos diplômes.",
+      "Traçage de plan d'immigration.",
+      "Traçage de la suite des procédures.",
+      "Proposition de type de traitement de votre immigration."
+    ],
+    "serviceTitle": "Assistance d'Immigration et d'Intégration au Canada",
+
+    "book_appointment": "Réserver un rendez-vous via le formulaire ci-dessous",
+    "submit_receipt": "Déposer le reçu de paiement",
+    "in_person_price": "Presentiel: 3000DA initial + 3000DA lors du rendez-vous",
+    "online_price": "En ligne : 6000DA",
+    "attend_appointment": "Assister au rendez-vous",
+
+    "processing_appointment": "Traitement de votre rendez-vous...",
+    "appointment_success": "Rendez-vous créé avec succès",
+    "appointment_error": "Erreur lors de la création du rendez-vous",
+    "oops": "Ops!",
+    "last_name": "Nom",
+    "first_name": "Prenom",
+    "age": "Age",
+    "phone_number": "Numéro téléphone",
+    "email": "Email",
+    "wilaya": "Wilaya",
+    "select_wilaya": "Sélectionnez une wilaya",
+    "initial_payment_method": "Méthode de paiement initial",
+    "payment_method": "Méthode de paiment",
+    "on_site": "Sur place (En présence)",
+    "ccp_baridi_mob": "CCP / BARIDI MOB",
+    "reservation": "Réservation",
+    "additional_info": "Informations Complémentaires (optional, 200 lettres max)",
+    "additional_info_placeholder": "si vous souhaitez ajouter des informations supplémentaires, vous pouvez les ajouter ici.",
+    "book": "Réserver",
+
+    "no_selected_date": "Aucune date sélectionnée",
+
+   
+    "disponible": "Disponible",
+    "en_ligne_seulement": "En ligne seulement",
+    "pris_sans_confirmation": "Pris sans confirmation",
+    "pris": "Pris",
+    "still_loading":"chargement en cours ...",
+    "online": "En ligne",
+
+    "Accuil" : "Accuil",
+    "Contact" : "Contact"
+  }
+  
+  

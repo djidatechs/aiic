@@ -5,7 +5,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker, StyledElement } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { fr } from 'date-fns/locale'; // Import the French locale
+import { fr, enUS , arDZ } from 'date-fns/locale';
+import { useLocale } from '../hooks/local';
+
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -34,6 +36,13 @@ function Calendar({
   selectedDay : Date|undefined;
 }) {
   const today = new Date();
+  const local = useLocale()
+
+  const local_format = {
+    ar: arDZ,
+    fr,
+    en : enUS
+  }
 
   const isDateInLists = (date: Date): keyof CustomClassNames | undefined => {
     if (filled_days.some((d) => d.toDateString() === date.toDateString())) 
@@ -52,7 +61,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      locale={fr} // Set the locale to French
+      locale={local_format[local]} // Set the locale to French
       className={cn("p-3 ", className)}
       classNames={{
         selectedDay : "selectedDay",

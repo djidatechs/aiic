@@ -1,5 +1,8 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n/client";
+
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -16,6 +19,7 @@ import { useRouter } from 'next/navigation';
 const MyForm = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const { t } = useTranslation("common"); // Initialize translation function
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
   });
@@ -23,7 +27,7 @@ const MyForm = () => {
   async function onSubmit(values: FormValues) {
     toast({
       className: "bg-blue-600 text-white font-semiBold text-lg",
-      description: "Traitement de votre rendez-vous...",
+      description: t('processing_appointment'), // Use translation key
     });
 
     try {
@@ -38,26 +42,28 @@ const MyForm = () => {
       if (response.ok) {
         toast({
           className: "bg-green-600 text-white font-semiBold",
-          description: "Rendez-vous créé avec succès",
+          description: t('appointment_success'), // Use translation key
         });
         // form.reset();
-        let {appointment} = await response.json()
-        
-        if (appointment?.link ) {toast({
-          className: "bg-green-600 text-white font-semiBold",
-          description: "Rendez-vous créé avec succès",
-        });
-        router.push(`/rv/${appointment.link}`)}
-       
+        let { appointment } = await response.json();
+
+        if (appointment?.link) {
+          toast({
+            className: "bg-green-600 text-white font-semiBold",
+            description: t('appointment_success'), // Use translation key
+          });
+          router.push(`/rv/${appointment.link}`)
+        }
+
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Erreur lors de la création du rendez-vous');
+        throw new Error(errorData.error || t('appointment_error')); // Use translation key
       }
     } catch (error) {
-      console.log({error})
+      console.log({ error });
       toast({
         className: "bg-red-600 text-white font-semiBold",
-        description: "Ops! ",
+        description: t('oops'), // Use translation key
       });
     }
   }
@@ -70,15 +76,14 @@ const MyForm = () => {
         className="space-y-9"
         noValidate
       >
-        {/* Form fields remain the same */}
         <FormField
           control={form.control}
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nom</FormLabel>
+              <FormLabel>{t('last_name')}</FormLabel> 
               <FormControl>
-                <Input type="text" placeholder="Nom" {...field} />
+                <Input type="text" placeholder={t('last_name')} {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -89,9 +94,9 @@ const MyForm = () => {
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Prenom</FormLabel>
+              <FormLabel>{t('first_name')}</FormLabel> 
               <FormControl>
-                <Input type="text" placeholder="Prenom" {...field} />
+                <Input type="text" placeholder={t('first_name')} {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -102,9 +107,9 @@ const MyForm = () => {
           name="age"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Age</FormLabel>
+              <FormLabel>{t('age')}</FormLabel> 
               <FormControl>
-                <Input type="number" min={1} max={100} placeholder="Age" {...field} />
+                <Input type="number" min={1} max={100} placeholder={t('age')} {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,9 +120,9 @@ const MyForm = () => {
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Numéro téléphone</FormLabel>
+              <FormLabel>{t('phone_number')}</FormLabel> 
               <FormControl>
-                <Input type="text" placeholder="Numéro téléphone" {...field} />
+                <Input type="text" placeholder={t('phone_number')} {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,23 +133,23 @@ const MyForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t('email')}</FormLabel> 
               <FormControl>
-                <Input type="email" placeholder="Email" {...field} />
+                <Input type="email" placeholder={t('email')} {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
+      <FormField
           control={form.control}
           name="wilaya"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Wilaya</FormLabel>
+              <FormLabel>{t('wilaya')}</FormLabel> 
               <FormControl>
                 <select {...field} className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-400">
-                  <option value="">Sélectionnez une wilaya</option>
+                  <option value="">{t('select_wilaya')}</option> 
                   {wilayas.map((wilaya, index) => (
                     <option key={wilaya} value={wilaya}>
                       {(index + 1) + "- " + wilaya}
@@ -161,12 +166,12 @@ const MyForm = () => {
           name="PaymentMethod"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Méthode de paiement initial</FormLabel>
+              <FormLabel>{t('initial_payment_method')}</FormLabel> 
               <FormControl>
                 <select {...field} className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-400">
-                  <option value="">Méthode de paiment</option>
-                  <option value="OnSite">Sur place (En présence)</option>
-                  <option value="CCPBaridiMob">CCP / BARIDI MOB</option>
+                  <option value="">{t('payment_method')}</option> 
+                  <option value="OnSite">{t('on_site')}</option> 
+                  <option value="CCPBaridiMob">{t('ccp_baridi_mob')}</option> 
                 </select>
               </FormControl>
               <FormMessage />
@@ -176,18 +181,21 @@ const MyForm = () => {
         <DatePicker  
           form={form}
           name="WorkingHour"
-          placeholder="Réservation"
+          placeholder={t('reservation')} 
         />
         <FormField
           control={form.control}
           name="additionalInfo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Informations Complémentaires <label className="text-gray-500">(optional, 200 lettres max)</label></FormLabel>
+              <FormLabel>
+                {t('additional_info')} 
+                <label className="text-gray-500">({t('optional_200_char')})</label> 
+              </FormLabel>
               <FormControl>
-                <RichTextEditor 
-                placeholder="si vous souhaitez ajouter des informations supplémentaires, vous pouvez les ajouter ici."
-                onChange={(draft) => field.onChange(draftToMarkdown(draft))} ref={field.ref} />
+                <RichTextEditor
+                  placeholder={t('additional_info_placeholder')} 
+                  onChange={(draft) => field.onChange(draftToMarkdown(draft))} ref={field.ref} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -199,9 +207,10 @@ const MyForm = () => {
           loading={form.formState.isSubmitting}
           onClick={(event) => {
             console.log("errors:", form.formState.errors);
+            
           }}
         >
-          Réserver 
+          {t('book')} 
         </LoadingButton>
       </form>
     </Form>
