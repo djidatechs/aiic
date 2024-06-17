@@ -49,7 +49,7 @@ export const GET = async () => {
           availableHours.push(hour);
         } else {
           const payment = appointment.payment;
-          if (payment && (payment.payed > 0 || payment.recite)) {
+          if (payment && (payment.payed > 0 || payment.recite_path)) {
             filledHours.push(hour);
           } else {
             filledNoPaymentHours.push(hour);

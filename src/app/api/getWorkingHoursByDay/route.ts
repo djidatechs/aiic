@@ -40,7 +40,7 @@ export const GET = async (req: Request) => {
       duration: wh.duration,
       available: wh.appointment == undefined,
       confirmed : wh.appointment && wh.appointment.payment ? 
-      wh.appointment.payment.recite != null || wh.appointment.payment?.payed !=0
+      wh.appointment.payment.recite_path != null || wh.appointment.payment?.payed !=0
       : false
     })})
 
