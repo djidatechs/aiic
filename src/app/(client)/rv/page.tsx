@@ -1,8 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-function page() {
+function RV() {
   const r = useRouter()
 
   useEffect(()=>{
@@ -13,4 +13,4 @@ function page() {
   );
 }
 
-export default page;
+export default RV;
