@@ -48,6 +48,24 @@
     "online": "على الشبكة",
 
     "Accueil" : "الرئيسية",
-    "Contact" : "راسلنا"
+    "Contact" : "راسلنا",
+
+    "welcomeMessage": "مرحبًا بكم على متن مشروع الهجرة إلى كندا الخاص بك!",
+    "reservationThanks": "{{ name }}, شكرًا لحجزك في {{ date }} في {{ startTime }}.",
+    "onlinePaymentInfo": "قم بدفع 6000 دج لتأكيد موعدك.",
+    "offlinePaymentInfo": "قم بدفع مبلغ أولي قدره 3000 دج لتأكيد موعدك.",
+    "remainderPaymentInfo": "سيتم دفع المبلغ المتبقي، 3000 دج، عند الموعد.",
+    "uploadReceipt": "استخدم الزر أدناه لتحميل صورة من إيصال الدفع الخاص بك.",
+    "submitReceipt": "إرسال الإيصال",
+    "saveLinkInfo": "يرجى حفظ هذا الرابط للوصول إلى هذه الصفحة لاحقًا إذا لم تتمكن من إجراء الدفع على الفور.",
+    "validImageFileAlert": "يرجى تحميل ملف صورة صالح.",
+    "selectFileAlert": "الرجاء تحديد ملف لتحميله.",
+    "fileUploadSuccess": "تم تحميل الملف بنجاح",
+    "fileUploadFailedAlert": "فشل تحميل الملف",
+
+    "confirmationMessage": "شكرًا، تم تأكيد موعدك!",
+    "appointmentDetails": "{{ name }}, لقد حجزت موعدًا كاملًا ليوم {{ date }} في {{ startTime }}.",
+    "onlineMeetingLink": "سيكون موعدك عبر الإنترنت. إليك رابط Google Meet الخاص بك:",
+    "physicalMeetingDetails": "سيكون موعدك وجهًا لوجه. يرجى زيارة مكتبنا المحلي في العنوان التالي:"
   }
   

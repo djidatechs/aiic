@@ -50,7 +50,26 @@
     "online": "En ligne",
 
     "Accueil" : "Accueil",
-    "Contact" : "Contact"
+    "Contact" : "Contact",
+
+    "welcomeMessage": "Bienvenue à bord de votre projet d'immigration au Canada !",
+    "reservationThanks": "{{ name }}, merci pour votre réservation le {{ date }} à {{ startTime }}.",
+    "onlinePaymentInfo": "Effectuez un paiement de 6000 DA pour valider votre rendez-vous.",
+    "offlinePaymentInfo": "Effectuez un paiement initial de 3000 DA pour valider votre rendez-vous.",
+    "remainderPaymentInfo": "Le reste du paiement, de 3000 DA, se fera lors du rendez-vous.",
+    "uploadReceipt": "Utilisez le bouton ci-dessous pour télécharger une image de votre reçu de paiement.",
+    "submitReceipt": "Soumettre le reçu",
+    "saveLinkInfo": "Veuillez sauvegarder ce lien pour accéder à cette page plus tard si vous ne pouvez pas effectuer le paiement immédiatement.",
+    "validImageFileAlert": "Veuillez télécharger un fichier image valide.",
+    "selectFileAlert": "Veuillez sélectionner un fichier à télécharger.",
+    "fileUploadSuccess": "Fichier téléchargé avec succès",
+    "fileUploadFailedAlert": "Échec du téléchargement du fichier",
+
+    "confirmationMessage": "Merci, votre rendez-vous est confirmé !",
+    "appointmentDetails": "{{ name }}, vous avez entièrement réservé un rendez-vous pour le {{ date }} à {{ startTime }}.",
+    "onlineMeetingLink": "Votre rendez-vous se déroulera en ligne. Voici votre lien Google Meet :",
+    "physicalMeetingDetails": "Votre rendez-vous se déroulera en présentiel. Veuillez vous rendre à notre bureau local à l'adresse suivante :"
+    
   }
   
   

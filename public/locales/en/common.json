@@ -51,6 +51,27 @@
   "online": "Online",
 
   "Accueil" : "Home",
-  "Contact" : "Contact"
+  "Contact" : "Contact",
+
+
+  "welcomeMessage": "Welcome aboard to your Canada immigration project!",
+  "reservationThanks": "{{ name }}, thank you for your reservation on {{ date }} at {{ startTime }}.",
+  "onlinePaymentInfo": "Make a payment of $100 to confirm your appointment.",
+  "offlinePaymentInfo": "Make an initial payment of $50 to confirm your appointment.",
+  "remainderPaymentInfo": "The remaining payment of $50 will be due at the appointment.",
+  "uploadReceipt": "Use the button below to upload an image of your payment receipt.",
+  "submitReceipt": "Submit Receipt",
+  "saveLinkInfo": "Please save this link to access this page later if you cannot make the payment immediately.",
+  "validImageFileAlert": "Please upload a valid image file.",
+  "selectFileAlert": "Please select a file to upload.",
+  "fileUploadSuccess": "File uploaded successfully",
+  "fileUploadFailedAlert": "File upload failed",
+
+  "confirmationMessage": "Thank you, your appointment is confirmed!",
+  "appointmentDetails": "{{ name }}, you have fully booked an appointment for {{ date }} at {{ startTime }}.",
+  "onlineMeetingLink": "Your appointment will be online. Here is your Google Meet link:",
+  "physicalMeetingDetails": "Your appointment will be in-person. Please visit our local office at the following address:"
+  
+  
   }
   

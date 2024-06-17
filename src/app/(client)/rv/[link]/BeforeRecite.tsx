@@ -1,97 +1,105 @@
-"use client"
 import { useState, ChangeEvent } from 'react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/i18n/client';
 
-// Define the type for the props
 interface BeforeReciteProps {
-  appointmentData: {
-    date: string;
-    type: string;
-    startTime: string;
-    name: string;
-    location: string;
-  };
-  onFileUploaded: () => void;
-}
-
-export default function BeforeRecite({ appointmentData, onFileUploaded }: BeforeReciteProps) {
+    appointmentData: {
+      date: string;
+      type: string;
+      startTime: string;
+      name: string;
+    };
+    link : string ;
+  }
+  
+// Component function
+export default function BeforeRecite({ appointmentData,  link }: BeforeReciteProps) {
+  const { t } = useTranslation("common");
   const [file, setFile] = useState<File | null>(null);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
     if (selectedFile && selectedFile.type.startsWith('image/')) {
       setFile(selectedFile);
     } else {
-      alert('Please upload a valid image file.');
+      alert(t('validImageFileAlert'));
     }
   };
 
   const handleFileSubmit = async () => {
-    if (!file) return;
+    if (!file) {
+      alert(t('selectFileAlert'));
+      return;
+    }
 
-    // Simulate file upload
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('image', file);
 
     try {
-      const response = await fetch('/api/recite/upload', {
+      const response = await fetch(`/api/recite/upload?link=${encodeURIComponent(link)}`, {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
-        alert('File uploaded successfully');
-        onFileUploaded();
+        toast({
+          className: "bg-green-600 text-white font-semiBold",
+          description: t('fileUploadSuccess'),
+        });
+        router.refresh();
       } else {
-        throw new Error('File upload failed');
+        const errorData = await response.json();
+        alert(`${t('fileUploadFailedAlert')}: ${errorData.error}`);
       }
     } catch (error) {
       console.error('Error uploading file:', error);
-      alert('Failed to upload file');
+      alert(t('fileUploadFailedAlert'));
     }
   };
 
   return (
     <>
       <h1 className="font-bold text-xl text-center">
-        Bienvenue à bord de votre projet d'immigration au Canada !
+        {t('welcomeMessage')}
       </h1>
       <p className="mt-4">
-        <strong>{appointmentData.name},</strong> merci pour votre réservation le {appointmentData.date} à {appointmentData.startTime}.
+        <strong>{appointmentData.name},</strong> {t('reservationThanks', { appointmentData })}
       </p>
       {appointmentData.type === 'Online' ? (
         <ul className="list-disc list-inside mt-4">
-          <li>Effectuez un paiement de <strong>6000 DA</strong> pour valider votre rendez-vous.</li>
-          <li>
-            Utilisez le bouton ci-dessous pour télécharger une image de votre reçu de paiement.
-          </li>
+          <li>{t('onlinePaymentInfo')}</li>
+          <li>{t('uploadReceipt')}</li>
         </ul>
       ) : (
-        <>
-          <ul className="list-disc list-inside mt-4">
-            <li>Effectuez un paiement initial de <strong>3000 DA</strong> pour valider votre rendez-vous.</li>
-            <li>
-              Utilisez le bouton ci-dessous pour télécharger une image de votre reçu de paiement.
-            </li>
-          </ul>
-          <p className="mt-4">
-            Le reste du paiement, de <strong>3000 DA</strong>, se fera lors du rendez-vous.
-          </p>
-        </>
-      )}
+          <>
+            <ul className="list-disc list-inside mt-4">
+              <li>{t('offlinePaymentInfo')}</li>
+              <li>{t('uploadReceipt')}</li>
+            </ul>
+            <p className="mt-4">
+              {t('remainderPaymentInfo')}
+            </p>
+          </>
+        )}
       <div className="mt-6 flex flex-col items-center">
-        <input 
-          type="file" 
+        <input
+          type="file"
           accept="image/*"
           className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
           onChange={handleFileChange}
         />
-        <button 
-          onClick={handleFileSubmit} 
+        <button
+          onClick={handleFileSubmit}
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-          disabled={!file}
         >
-          Soumettre le reçu
+          {t('submitReceipt')}
         </button>
+        <p className="mt-2 bg-yellow-400 p-3 font-semibold text-center text-sm text-black rounded-lg">
+          {t('saveLinkInfo')}
+        </p>
       </div>
     </>
   );

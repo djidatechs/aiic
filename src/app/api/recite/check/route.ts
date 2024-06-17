@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
 
         if (response===null) 
         return NextResponse.json({ success: false, error: "wrong link" }, { status: 500 });
-
         
         return NextResponse.json({ success: true, uploaded : response.recite_path!==null });
 
