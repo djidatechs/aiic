@@ -190,7 +190,6 @@ const MyForm = () => {
             <FormItem>
               <FormLabel>
                 {t('additional_info')} 
-                <label className="text-gray-500">({t('optional_200_char')})</label> 
               </FormLabel>
               <FormControl>
                 <RichTextEditor
