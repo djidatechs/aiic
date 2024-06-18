@@ -114,7 +114,6 @@ function Calendar({
         filled:         (date) => isDateInLists(date) === "filled",
         maybeFilled:    (date) => isDateInLists(date) === "maybeFilled",
         allowed:        (date) => isDateInLists(date) === "allowed",
-        allowed_online: (date) => isDateInLists(date) === "allowed_online",
       }}
       {...props}
     />

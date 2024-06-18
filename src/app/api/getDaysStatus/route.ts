@@ -1,4 +1,4 @@
-// pages/api/getDaysStatus.ts
+// pages/api/getDaysStatus
 import { PrismaClient } from '@prisma/client';
 
 
@@ -43,12 +43,12 @@ export const GET = async () => {
       const availableHours = [];
     
       for (const hour of (hours as any) ) {
-        const appointment = hour.appointments;
+        const appointment = hour.appointment;
     
         if (!appointment) {
           availableHours.push(hour);
         } else {
-          const payment = appointment.payment;
+          const payment = appointment.payment;          
           if (payment && (payment.payed > 0 || payment.recite_path)) {
             filledHours.push(hour);
           } else {

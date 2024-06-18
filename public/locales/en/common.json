@@ -56,7 +56,7 @@
 
   "welcomeMessage": "Welcome aboard to your Canada immigration project!",
   "reservationThanks": "thank you for your reservation on {{ date }} at {{ startTime }} for the duration of {{duration}}min.",
-  "onlinePaymentInfo": "Make a payment of $6000 DA to confirm your appointment.",
+  "onlinePaymentInfo": "Make a payment of 6000 DA to confirm your appointment.",
   "offlinePaymentInfo": "Make an initial payment of 3000 DA to confirm your appointment.",
   "remainderPaymentInfo": "The remaining payment of 3000 DA will be due at the appointment.",
   "uploadReceipt": "Use the button below to upload an image of your payment receipt.",
