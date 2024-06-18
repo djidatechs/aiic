@@ -3,6 +3,8 @@ import bgHero from "../../../public/bghero22.png";
 import ca from "../../../public/ca.png";
 import dz from "../../../public/dz.png";
 import { createTranslation, getLocale } from "@/lib/i18n/server";
+import LoadingButton from "./LoadingButton";
+import ReserveButton from "./reserveButton";
 
 const Hero = async () => {
   const {t} = await createTranslation('common');
@@ -28,6 +30,7 @@ const Hero = async () => {
                 <li key={index}>{service}</li>
               ))}
             </ul>
+            <ReserveButton text={t('reserveButton')}/>
 
           </div>
           <div className="order-2 lg:order-2 lg:w-[48%] mt-0 sm:mt-8 lg:mt-0 flex items-center flex-col">
