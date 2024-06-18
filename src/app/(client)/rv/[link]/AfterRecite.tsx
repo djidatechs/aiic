@@ -10,12 +10,12 @@ interface AfterReciteProps {
     type: string;
     startTime: string;
     name: string;
+    duration:string;
   };
 }
 
 export default function AfterRecite({ appointmentData }: AfterReciteProps) {
   const { t } = useTranslation("common");
-  const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
   const handleDownload = () => {
@@ -24,13 +24,12 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
     const meetingLink = isOnline ? 'https://meet.google.com/your-meeting-link' : ''; //todo
     const bureauLocation = !isOnline ? general.bureau : '';
     
-    const appointmentInfo = `
-      ${t('appointmentDetails', appointmentData)}
-      \nType: ${appointmentData.type}
-      \nDate: ${appointmentData.date}
-      \nStart Time: ${appointmentData.startTime}
-      \nURL: ${currentUrl}
-      ${isOnline ? `\n\nGoogle Meet Link: ${meetingLink}` : `\n\nBureau Location: ${bureauLocation}`}
+    const appointmentInfo = `${t('appointmentDetails', appointmentData)}
+      \nType نوع اللقاء: ${appointmentData.type}
+      \nDate التاريخ: ${appointmentData.date}
+      \NTime Temp الوقت: ${appointmentData.startTime}
+      \nURL الوصل: ${currentUrl}
+      ${isOnline ? `\n\nGoogle Meet Link عنوان اللقاء الالكتروني: ${meetingLink}` : `\n\nBureau Location عنوان المكتب: ${bureauLocation}`}
     `;
 
     const blob = new Blob([appointmentInfo], { type: 'text/plain' });
@@ -52,10 +51,8 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      setCopied(true);
     } catch (error) {
       console.error('Failed to copy:', error);
-      setCopied(false);
     }
   };
 
@@ -73,7 +70,7 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
         </p>
       ) : (
         <p className="mt-4">
-          {t('physicalMeetingDetails')} <a href="https://www.google.com/maps?q=adresse+du+bureau" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">Location</a>.
+          {t('physicalMeetingDetails')} <a href={general.bureau} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">Location</a>.
         </p>
       )}
       <div className="mt-6 flex justify-center">
@@ -89,9 +86,9 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
         <span className="text-gray-700 break-all">{window.location.href}</span>
         <button 
           onClick={handleCopyLink} 
-          className={`ml-2 p-2 bg-red-700 text-white rounded-xl ${copied ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`ml-2 p-2 bg-red-700 text-white rounded-xl hover:bg-blue-600 transition duraiton-300`}
+          
           title="Copier le lien"
-          disabled={copied}
         >
           <CopyIcon color="#fff" />
         </button>

@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
                     date:true,
                     type:true,
                     startTime:true,
+                    duration:true
                 }
             }
           }

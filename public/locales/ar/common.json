@@ -13,10 +13,10 @@
     "serviceTitle": "المساعدة في الهجرة والاندماج في كندا",
 
     "book_appointment": "احجز موعدًا عبر النموذج أدناه",
-    "submit_receipt": "قم بإيداع إيصال الدفع",
+    "submit_receipt": "قم بإيداع إيصال الدفع CCP / Baridi Mob",
     "in_person_price": "الحضور الشخصي: 3000 دينار جزائري أولية + 3000 دينار جزائري عند الموعد",
     "online_price": "عبر الإنترنت: 6000 دينار جزائري",
-    "attend_appointment": "حضور الموعد",
+    "attend_appointment": "احضر الموعد",
 
     "processing_appointment": "جارٍ معالجة موعدك...",
     "appointment_success": "تم إنشاء الموعد بنجاح",
@@ -51,7 +51,7 @@
     "Contact" : "راسلنا",
 
     "welcomeMessage": "مرحبًا بكم على متن مشروع الهجرة إلى كندا الخاص بك!",
-    "reservationThanks": "{{ name }}, شكرًا لحجزك في {{ date }} في {{ startTime }}.",
+    "reservationThanks": " شكرًا لحجزك في {{ date }} في {{ startTime }} لمدة {{duration}} دقيقة",
     "onlinePaymentInfo": "قم بدفع 6000 دج لتأكيد موعدك.",
     "offlinePaymentInfo": "قم بدفع مبلغ أولي قدره 3000 دج لتأكيد موعدك.",
     "remainderPaymentInfo": "سيتم دفع المبلغ المتبقي، 3000 دج، عند الموعد.",
@@ -64,7 +64,7 @@
     "fileUploadFailedAlert": "فشل تحميل الملف",
 
     "confirmationMessage": "شكرًا، تم تأكيد موعدك!",
-    "appointmentDetails": "{{ name }}, لقد حجزت موعدًا كاملًا ليوم {{ date }} في {{ startTime }}.",
+    "appointmentDetails": " لقد حجزت موعدًا كاملًا ليوم {{ date }} في {{ startTime }} لمدة {{duration}} دقيقة",
     "onlineMeetingLink": "سيكون موعدك عبر الإنترنت. إليك رابط Google Meet الخاص بك:",
     "physicalMeetingDetails": "سيكون موعدك وجهًا لوجه. يرجى زيارة مكتبنا المحلي في العنوان التالي:"
   }

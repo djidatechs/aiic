@@ -4,10 +4,11 @@ import logo from "../../../public/logo.jpg";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import PhoneMenu from "./PhoneMenu";
-import { createTranslation } from "@/lib/i18n/server";
+import { createTranslation, getLocale } from "@/lib/i18n/server";
 
 const Navbar =  async () => {
   const {t} = await createTranslation('common');
+  const local = getLocale()
   
   return (
     <header className="bg-red-600 border-b-2 rounded border-b-red-600 py-3 sticky top-0 z-50">
@@ -18,7 +19,7 @@ const Navbar =  async () => {
             <h1>AIIC</h1>
           </Link>
         
-          <nav className={`hidden  lg:flex w-full  `}>
+          <nav dir={`${local == "ar" ? "rtl": "ltr"}`} className={`hidden  lg:flex w-full  `}>
             <ul className="flex flex-row space-x-2 overflow-auto ml-auto justify-end  lg:gap-12 lg:space-x-4 mt-4 lg:mt-0">
               <li className="text-lg font-bold text-white">
                 <Link href="/">{t('Accueil')}</Link>

@@ -14,7 +14,7 @@
     "serviceTitle": "Assistance d'Immigration et d'Intégration au Canada",
 
     "book_appointment": "Réserver un rendez-vous via le formulaire ci-dessous",
-    "submit_receipt": "Déposer le reçu de paiement",
+    "submit_receipt": "Déposer le reçu de paiement CCP / Baridi Mob",
     "in_person_price": "Presentiel: 3000DA initial + 3000DA lors du rendez-vous",
     "online_price": "En ligne : 6000DA",
     "attend_appointment": "Assister au rendez-vous",
@@ -53,7 +53,7 @@
     "Contact" : "Contact",
 
     "welcomeMessage": "Bienvenue à bord de votre projet d'immigration au Canada !",
-    "reservationThanks": "{{ name }}, merci pour votre réservation le {{ date }} à {{ startTime }}.",
+    "reservationThanks": "merci pour votre réservation le {{ date }} à {{ startTime }} pour une durée de {{duration}}min .",
     "onlinePaymentInfo": "Effectuez un paiement de 6000 DA pour valider votre rendez-vous.",
     "offlinePaymentInfo": "Effectuez un paiement initial de 3000 DA pour valider votre rendez-vous.",
     "remainderPaymentInfo": "Le reste du paiement, de 3000 DA, se fera lors du rendez-vous.",
@@ -66,7 +66,7 @@
     "fileUploadFailedAlert": "Échec du téléchargement du fichier",
 
     "confirmationMessage": "Merci, votre rendez-vous est confirmé !",
-    "appointmentDetails": "{{ name }}, vous avez entièrement réservé un rendez-vous pour le {{ date }} à {{ startTime }}.",
+    "appointmentDetails": "vous avez entièrement réservé un rendez-vous pour le {{ date }} à {{ startTime }} pour une durée de {{duration}}min .",
     "onlineMeetingLink": "Votre rendez-vous se déroulera en ligne. Voici votre lien Google Meet :",
     "physicalMeetingDetails": "Votre rendez-vous se déroulera en présentiel. Veuillez vous rendre à notre bureau local à l'adresse suivante :"
     

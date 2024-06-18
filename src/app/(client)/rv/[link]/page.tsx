@@ -10,6 +10,7 @@ interface AppointmentData {
   type: string;
   startTime: string;
   name: string;
+  duration:string;
 }
 
 // Define the props for the Home component
@@ -35,9 +36,10 @@ export default function Home({ params }: HomeProps) {
 
         const data = await response.json();
         if (data.success && data.appointment) {
-          const { date, type, startTime } = data.appointment.workinghours;
+          const { date, type, startTime, duration } = data.appointment.workinghours;
           setAppointmentData({
             date: toLocalISOString(new Date(date)),
+            duration,
             type,
             startTime: new Date(startTime).toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
             name: `${data.appointment.client.lastName} ${data.appointment.client.firstName}`,

@@ -17,6 +17,8 @@ model admin {
   admin       admin?     @relation("adminToadmin", fields: [createdById], references: [id], map: "Admin_createdById_fkey")
   other_admin admin[]    @relation("adminToadmin")
   log         log[]
+  created_At  DateTime?  @default(now())
+  updated_At  DateTime?  @updatedAt
 
   @@index([createdById], map: "Admin_createdById_fkey")
 }
@@ -29,6 +31,8 @@ model appointment {
   workinghours   workinghours @relation(fields: [WorkingHoursId], references: [id], map: "Appointment_WorkingHoursId_fkey")
   client         client       @relation(fields: [clientId], references: [id], map: "Appointment_clientId_fkey")
   payment        payment?
+  created_At     DateTime?    @default(now())
+  updated_At     DateTime?    @updatedAt
 }
 
 model client {
@@ -42,15 +46,19 @@ model client {
   ipAddress   String?
   createdAt   DateTime     @default(now())
   appointment appointment?
+  created_At  DateTime?    @default(now())
+  updated_At  DateTime?    @updatedAt
 }
 
 model log {
-  id        Int      @id @default(autoincrement())
-  action    String
-  ipAddress String
-  timestamp DateTime @default(now())
-  adminId   Int
-  admin     admin    @relation(fields: [adminId], references: [id], map: "Log_adminId_fkey")
+  id         Int       @id @default(autoincrement())
+  action     String
+  ipAddress  String
+  timestamp  DateTime  @default(now())
+  adminId    Int
+  admin      admin     @relation(fields: [adminId], references: [id], map: "Log_adminId_fkey")
+  created_At DateTime? @default(now())
+  updated_At DateTime? @updatedAt
 
   @@index([adminId], map: "Log_adminId_fkey")
 }
@@ -63,6 +71,8 @@ model payment {
   payed         Float
   recite_path   String?
   appointment   appointment           @relation(fields: [appointmentId], references: [id], map: "Payment_appointmentId_fkey")
+  created_At    DateTime?             @default(now())
+  updated_At    DateTime?             @updatedAt
 }
 
 model workinghours {
@@ -72,6 +82,8 @@ model workinghours {
   type        workinghours_type
   duration    Int
   appointment appointment?
+  created_At  DateTime?         @default(now())
+  updated_At  DateTime?         @updatedAt
 }
 
 enum payment_paymentMethod {

@@ -14,7 +14,7 @@
 
     
     "book_appointment": "Book an appointment via the form below",
-    "submit_receipt": "Submit the payment receipt",
+    "submit_receipt": "Submit the payment receipt CCP / Baridi Mob",
     "in_person_price": "In-person: 3000DA initial + 3000DA at the appointment",
     "online_price": "Online: 6000DA",
     "attend_appointment": "Attend the appointment",
@@ -55,10 +55,10 @@
 
 
   "welcomeMessage": "Welcome aboard to your Canada immigration project!",
-  "reservationThanks": "{{ name }}, thank you for your reservation on {{ date }} at {{ startTime }}.",
-  "onlinePaymentInfo": "Make a payment of $100 to confirm your appointment.",
-  "offlinePaymentInfo": "Make an initial payment of $50 to confirm your appointment.",
-  "remainderPaymentInfo": "The remaining payment of $50 will be due at the appointment.",
+  "reservationThanks": "thank you for your reservation on {{ date }} at {{ startTime }} for the duration of {{duration}}min.",
+  "onlinePaymentInfo": "Make a payment of $6000 DA to confirm your appointment.",
+  "offlinePaymentInfo": "Make an initial payment of 3000 DA to confirm your appointment.",
+  "remainderPaymentInfo": "The remaining payment of 3000 DA will be due at the appointment.",
   "uploadReceipt": "Use the button below to upload an image of your payment receipt.",
   "submitReceipt": "Submit Receipt",
   "saveLinkInfo": "Please save this link to access this page later if you cannot make the payment immediately.",
@@ -68,7 +68,7 @@
   "fileUploadFailedAlert": "File upload failed",
 
   "confirmationMessage": "Thank you, your appointment is confirmed!",
-  "appointmentDetails": "{{ name }}, you have fully booked an appointment for {{ date }} at {{ startTime }}.",
+  "appointmentDetails": "you have fully booked an appointment for {{ date }} at {{ startTime }} for the duration of {{duration}}min.",
   "onlineMeetingLink": "Your appointment will be online. Here is your Google Meet link:",
   "physicalMeetingDetails": "Your appointment will be in-person. Please visit our local office at the following address:"
   
