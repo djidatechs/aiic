@@ -8,16 +8,9 @@ const prisma = new PrismaClient();
 export async function POST(req: NextRequest) {
 
     try {
-        // Extract the parsed JSON body directly
         const data: FormValues = await req.json();
-
-        // Validate input data using Zod schema
-        const validatedData = FormSchema.parse(data);
-
-        // Extract the client's IP address from the request
+        const validatedData =  FormSchema.parse(data);
         const ipAddress = req.headers.get('x-forwarded-for') || req.ip || null;
-
-        // Create the client record
         const client = await prisma.client.create({
             data: {
                 firstName: validatedData.firstName,
@@ -29,17 +22,12 @@ export async function POST(req: NextRequest) {
                 ipAddress: ipAddress ? ipAddress.split(',')[0].trim() : null, // Get the first IP if x-forwarded-for has multiple addresses
             },
         });
-
-        // Create the appointment record
         const appointment = await prisma.appointment .create({
             data: {
                 clientId: client.id,
                 WorkingHoursId: validatedData.WorkingHour, // assuming a valid WorkingHours ID
-                
             },
         });
-
-        // Create the payment record if payment details are provided
         if (validatedData.PaymentMethod) {
             await prisma.payment.create({
                 data: {
@@ -50,10 +38,6 @@ export async function POST(req: NextRequest) {
                 },
             });
         }
-
-        // Respond with the created appointment
-                return NextResponse.json({ success: true, appointment });
-    } catch (error) {
-                return NextResponse.json({ success: false, error: error }, { status: 500 });
-    }
+        return NextResponse.json({ success: true, appointment });
+    } catch (error) { return NextResponse.json({ success: false, error: error }, { status: 500 });}
 }

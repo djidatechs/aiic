@@ -71,8 +71,8 @@
   "confirmationMessage": "Thank you, your appointment is confirmed!",
   "appointmentDetails": "you have fully booked an appointment for {{ date }} at {{ startTime }} for the duration of {{duration}}min.",
   "onlineMeetingLink": "Your appointment will be online. Here is your Google Meet link:",
-  "physicalMeetingDetails": "Your appointment will be in-person. Please visit our local office at the following address:"
-  
+  "physicalMeetingDetails": "Your appointment will be in-person. Please visit our local office at the following address:",
+  "champobligatoire" : "Obligatory field"
   
   }
   
