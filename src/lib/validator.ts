@@ -65,7 +65,7 @@ const workinghours_commun_schema = z.object({
   type: z.enum(["InPerson", "Online"]),
   state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE"),
   id : id_schema,
-  appointment : z.object({id : id_schema,})
+  
   
 })
 
@@ -76,7 +76,7 @@ const workinghours_commun_schema = z.object({
 export const workinghours_create_schema = workinghours_commun_schema 
 export const workinghours_update_schema = workinghours_commun_schema.extend({id:id_schema}) // needs id
 export const workinghours_updatebatch_schema = z.array(workinghours_update_schema)
-export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject ).merge(SelectFilterAid()).partial().optional()
+export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject ).merge(z.object({appointment : z.object({id : id_schema,})})).merge(SelectFilterAid()).partial().optional()
 export const workinghours_get_by_id_schema = id_schema
 
 

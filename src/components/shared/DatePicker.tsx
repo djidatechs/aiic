@@ -79,6 +79,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
         setday_Loading(false);
       } catch (error) {
         console.error(error);
+        setday_Loading(false);
       }
     };
     fetchDaysStatus();
