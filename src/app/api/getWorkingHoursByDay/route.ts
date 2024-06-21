@@ -35,7 +35,7 @@ export const GET = async (req: Request) => {
     const res = workingHours.map((wh) =>{ 
       return ({
       id: wh.id,
-      startTime: wh.startTime.toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
+      startTime: wh.date.toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
       type: wh.type,
       duration: wh.duration,
       available: wh.appointment == undefined,

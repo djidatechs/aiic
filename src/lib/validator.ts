@@ -2,10 +2,18 @@ import * as z from "zod";
 import wilayas from "./wilayas.json";
 
 
+
+
+/************************************************************************************** */
+/***************************                            ******************************* */
+/***************************    Main Page Form Schema   ******************************* */
+/***************************                            ******************************* */
+/************************************************************************************** */
 const today = new Date() ; today.setHours(0,0,0,0);
 const PaymentMethod = z.enum(['CCPBaridiMob', 'OnSite'], {
 required_error: "Le mode de paiement est requis",
 });
+
 
 export const FormSchema = z.object({
   firstName: z.string({required_error:"Champ obligatoire"}).min(1, { message: "Le prénom est requis" }),
@@ -20,10 +28,15 @@ export const FormSchema = z.object({
   PaymentMethod: PaymentMethod,
   additionalInfo: z.string().max(200).optional(),
 });
-
 export type FormValues = z.infer<typeof FormSchema>;
 
 
+
+/************************************************************************************** */
+/***************************                            ******************************* */
+/***************************     Admin Sign in Schema   ******************************* */
+/***************************                            ******************************* */
+/************************************************************************************** */
 
 
 export const signInFormSchema = z.object({
@@ -32,85 +45,129 @@ export const signInFormSchema = z.object({
 });
 export type signInFormValues = z.infer<typeof signInFormSchema>;
 
-
-const MAX_FILE_SIZE = 5000000;
-function checkFileType(file: File) {
-  if (file?.name) {
-      const fileType = file.name.split(".").pop();
-      if (fileType === "jpg" || fileType === "png") return true;
-  }
-  return false;
-}
-
-
-export const fileSchema = z.object({
-file : z.any()
-.refine((file: File) => file?.size !== 0, "File is required")
-.refine((file) => file.size < MAX_FILE_SIZE, "Max size is 5MB.")
-.refine((file) => checkFileType(file), ".jpg ou .png"),
-});
-export type fileValues = z.infer<typeof fileSchema>;
+/************************************************************************************** */
+/***************************                            ******************************* */
+/***************************     Working Hours Schema   ******************************* */
+/***************************                            ******************************* */
+/************************************************************************************** */
+//id schema
+const id_schema = z.string().transform(n=>parseInt(n))
+const select_schema: z.ZodType<any> = z.lazy(() => 
+  z.record(
+    z.union([z.boolean(), select_schema])
+  ))
 
 
-export const workinghoursSchema = z.object({
-  date: z.date(),
-  startTime: z.date(),
-  type: z.enum(["InPerson", "Online"]),
+const workinghours_commun_schema = z.object({
+  // [IMPORTANT : KEEP DATE AND DURATION IN TOP]
+  date: z.string().transform((val) => new Date(val)),
   duration: z.number().int().positive(),
-  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"])
-});
-  const wh_selectSchema = z.object({
-  date: z.boolean().optional(),
-  startTime: z.boolean().optional(),
-  type: z.boolean().optional(),
-  duration: z.boolean().optional(),
-  state: z.boolean().optional(),
-  id : z.boolean().optional()
-}).optional();
-
-
-
-export type workinghoursValues = z.infer<typeof workinghoursSchema>;
-
-export const workinghoursAdvancedGetFilterSchema = z.object({
-  date: comparer_optional (z.date()),
-  startTime: comparer_optional (z.date()),
   type: z.enum(["InPerson", "Online"]),
-  duration: comparer_optional (z.number().int().positive()),
-  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]),
-  select : wh_selectSchema,
-  order : z.record (z.string(), z.enum(["asc","desc"])).optional(),
-  page : z.string().optional(),
-  limit : z.string().optional()
-}).optional()
-
-export type workinghoursAdvancedGetValues = z.infer<typeof workinghoursAdvancedGetFilterSchema>;
-
-
-
-const ap_selectSchema = z.object({
-  clientId : z.boolean().optional(),
-  WorkingHoursId : z.boolean().optional(),
-  link : z.boolean().optional(),
-  state   : z.boolean().optional(),
-  id : z.boolean().optional(),
-}).optional();
-export const appointmentAdvancedGetFilterSchema = z.object({
-  clientId : z.string(),
-  WorkingHoursId : z.string(),
-  link : z.string(),
-  state   : z.enum([ "SCHEDULED","COMPLETED","CANCELLED","CONFIRMED" ]),
-  select : ap_selectSchema,
-  order : z.record (z.string(), z.enum(["asc","desc"])).optional(),
-  page : z.string().optional(),
-  limit : z.string().optional()
+  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE"),
+  id : id_schema,
+  appointment : z.object({id : id_schema,})
+  
 })
 
-function comparer_optional<ItemType extends z.ZodTypeAny>(itemSchema: ItemType) {
+
+
+
+
+export const workinghours_create_schema = workinghours_commun_schema 
+export const workinghours_update_schema = workinghours_commun_schema.extend({id:id_schema}) // needs id
+export const workinghours_updatebatch_schema = z.array(workinghours_update_schema)
+export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject ).merge(SelectFilterAid()).partial().optional()
+export const workinghours_get_by_id_schema = id_schema
+
+
+
+
+/****************************************************************************************** */
+/****************************************************************************************** */
+/***************************                                ******************************* */
+/***************************     admin appointment Schema   ******************************* */
+/***************************                                ******************************* */
+/****************************************************************************************** */
+/****************************************************************************************** */
+
+
+const payment_commun_schem = z.object({
+  id : id_schema,
+  amount : z.string().transform(n=>parseInt(n)),
+  payed : z.string().transform(n=>parseInt(n)),
+  updated_At : z.string().transform(d=> new Date(d)),
+  created_At : z.string().transform(d=> new Date(d)),
+  recite_path : z.string()
+})
+export const appointment_commun_schema = z.object({
+  id : id_schema,
+  link : z.string(),
+  state   : z.enum([ "SCHEDULED","COMPLETED","CANCELLED","CONFIRMED" ]),
+  clientId:z.string().transform(n=>parseInt(n)),
+  WorkingHoursId: z.string().transform(n=>parseInt(n)),
+  updated_At : z.string().transform(d=> new Date(d)),
+  created_At : z.string().transform(d=> new Date(d)),
+  payment : payment_commun_schem
+})
+
+
+export const appointment_create_schema = appointment_commun_schema 
+export const appointment_update_schema = appointment_commun_schema.extend({id:id_schema}) // needs id
+export const appointment_updatebatch_schema = z.array(appointment_update_schema)
+// export const appointment_get_filter_schema = appointment_commun_schema.merge(createappointmentFilterAid1Schema()).merge(SelectFilterAid()).partial().optional()
+export const appointment_get_filter_schema = (traverseZodSchema(appointment_commun_schema) as z.AnyZodObject ).merge(SelectFilterAid()).partial().optional()
+export const appointment_get_by_id_schema = id_schema
+
+
+
+
+/****************************************************************************************** */
+/****************************************************************************************** */
+/***************************                                ******************************* */
+/***************************          commun stuff          ******************************* */
+/***************************                                ******************************* */
+/****************************************************************************************** */
+/****************************************************************************************** */
+
+
+
+function SelectFilterAid () {
+  return z.object({
+    select: select_schema,
+    order: z.record(z.string(), z.enum(["asc", "desc"])),
+    page: z.string(),
+    limit: z.string()
+  });
+};
+
+
+function traverseZodSchema(schema: z.ZodType): z.ZodTypeAny {
+  if (schema instanceof z.ZodObject) {
+    
+    const newShape: Record<string, z.ZodTypeAny> = {};
+    for (const [key, field] of Object.entries(schema.shape)) {
+      if (field instanceof z.ZodType ) newShape[key] = traverseZodSchema(field)
+    }
+    return  z.object(newShape)
+  } else {
+    // It's a leaf node (primitive type or union)
+    return ExactMinMaxInProps(schema);
+  }
+}
+
+function ExactMinMaxInProps<ItemType extends z.ZodTypeAny>(itemSchema: ItemType) {
   return z.object({
     exact: itemSchema.optional(),
-    min: itemSchema.optional(),
-    max: itemSchema.optional(),
-    in: itemSchema.optional(),
-  }).optional();
+    min:   itemSchema.optional(),
+    max:   itemSchema.optional(),
+    in:    itemSchema.optional(),
+    not:   itemSchema.optional(),
+  }).partial().optional();
 }
+  
+function getSchemaKeys<T extends z.ZodRawShape>(schema: z.ZodObject<T>): (keyof T)[] {
+  const schemaShape = schema._def.shape();
+  return Object.keys(schemaShape) as (keyof T)[];
+}
+
+

@@ -1,45 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { workinghoursSchema } from '@/lib/validator'; // Adjust path as per your actual setup
+import { workinghours_updatebatch_schema } from '@/lib/validator'; // Adjust path as per your actual setup
 
 const prisma = new PrismaClient();
 
 export async function PUT(req: NextRequest) {
   try {
-    const updateSchema = workinghoursSchema.partial();
-    const requestData = await req.json();
+    const updateSchema = workinghours_updatebatch_schema
+    const data  = await req.json();
+    const validatedData = updateSchema.safeParse(data);
 
-    if (!Array.isArray(requestData) || requestData.length === 0) {
-      return NextResponse.json({ success: false, error: "No valid data provided" }, { status: 400 });
+    if (!validatedData.success) {
+      console.log({errors: validatedData.error})
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid query parameters',
+        errors: validatedData.error?.errors.map((err) => err.message) || [],
+      }, { status: 400 });
     }
-    
-    const results = [];
-
-    for (const item of requestData) {
-      const id = item.id;
-      const data = item.data;
-
-      if (!id || isNaN(parseInt(id)) || !data) {
-        results.push({ id, success: false, error: "Invalid ID or missing data" });
-        continue;
-      }
-
-      const validatedData = updateSchema.parse(data);
-      
-      try {
-        const updatedWorkingHours = await prisma.workinghours.update({
-          where: { id: parseInt(id) },
-          data: validatedData,
+    validatedData.data.map(
+      async (row) => {
+        const id = row.id
+        if (!id || isNaN(id)) return NextResponse.json({ success: false, error : "Can't update" }, { status: 500 });
+        await prisma.workinghours.update({
+          where: { id: id },
+          data: row,
         });
-
-        results.push({ id, success: true, updatedWorkingHours });
-      } catch (error) {
-        results.push({ id, success: false, error: error });
       }
-    }
+    )
 
-    return NextResponse.json({ success: true, results });
+  
+    
+    return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error }, { status: 500 });
+    return NextResponse.json({ success: false, error }, { status: 500 });
   }
 }

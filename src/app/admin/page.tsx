@@ -1,7 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { signOut } from "next-auth/react";
 import Logout from "./Logout";
 import Send from "./Send";
 

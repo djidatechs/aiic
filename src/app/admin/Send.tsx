@@ -8,8 +8,7 @@ function Send() {
 
     const handleFetch = async () => {
         try {
-            const params = "1"
-            const response = await fetch(`/api/admin/workinghours/get/filter?startTime[min]=1970-01-01T13:00:00.000Z`);
+            const response = await fetch(`/api/admin/workinghours/get/filter?appointment[id][exact]=14`);
             const data = await response.json();
 
             if (response.ok) {

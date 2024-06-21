@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
                 data: {
                     amount: 0, // Update as needed
                     payed: 0, // Update as needed
-                    paymentMethod: validatedData.PaymentMethod,
                     appointmentId: appointment.id,
                 },
             });

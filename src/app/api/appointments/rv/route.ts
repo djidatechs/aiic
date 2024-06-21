@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
                 select:{
                     date:true,
                     type:true,
-                    startTime:true,
                     duration:true
                 }
             }

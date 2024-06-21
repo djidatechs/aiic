@@ -36,12 +36,12 @@ export default function Home({ params }: HomeProps) {
 
         const data = await response.json();
         if (data.success && data.appointment) {
-          const { date, type, startTime, duration } = data.appointment.workinghours;
+          const { date, type,  duration } = data.appointment.workinghours;
           setAppointmentData({
-            date: toLocalISOString(new Date(date)),
+            date: toLocalISOString(new Date(date)).split('T')[0],
             duration,
             type,
-            startTime: new Date(startTime).toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
+            startTime: new Date(date).toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
             name: `${data.appointment.client.lastName} ${data.appointment.client.firstName}`,
           });
 

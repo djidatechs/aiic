@@ -13,11 +13,11 @@ const Hero = async () => {
 
   return (
     <section  className="bg-white rounded-xl  py-8 sm:py-12" aria-labelledby="hero-heading">
-      <div className="w-full max-w-7xl  lg:pl-12 mx-auto px-4 sm:px-6 md:px-8">
+      <div className="w-full max-w-7xl  lg:pl-12 mx-auto px-4 sm:px-6 lg:px-8">
         <div  className="flex flex-col lg:flex-row lg:space-x-8">
           <div className={`order-3 px-4 lg:px-0 lg:order-1 max-w-xl lg:w-[48%] ${local=="ar"?"text-right":"lg:text-left"} `}>
             <h1 id="hero-heading" 
-            className={`pt-6 lg:p-0 text-center ${local=="ar"?"text-center w-full lg:text-right":"text-left"}  text-2xl md:text-5xl font-extrabold uppercase`}>
+            className={`pt-6 lg:p-0 text-center ${local=="ar"?"text-center w-full lg:text-right":"text-left"}  text-2xl lg:text-5xl font-extrabold uppercase`}>
               {t('heroHeading')}
               <strong className="block font-extrabold text-red-700">
                 {t('heroHighlight')}

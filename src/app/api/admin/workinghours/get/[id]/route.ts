@@ -1,15 +1,26 @@
-// api/workinghours/get.ts
+// api/workinghours/get/[id]
 
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { workinghours_get_by_id_schema } from '@/lib/validator';
 const prisma = new PrismaClient();
 export  async function GET(req: NextRequest, {params}:any) {
   try {
-    const id = params.id;
-    if (!id || isNaN(parseInt(id))) return  NextResponse.json({ success: false, error:'Bad Param' }, { status: 500 });
+    const validatedParams = workinghours_get_by_id_schema.safeParse(params.id);
+    if (!validatedParams.success) {
+      console.log({errors: validatedParams.error})
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid query parameters',
+        errors: validatedParams.error?.errors.map((err) => err.message) || [],
+      }, { status: 400 });
+    }
+    console.log(validatedParams.data)
+    const id = validatedParams.data
+    if (!id || isNaN(id)) return  NextResponse.json({ success: false, error:'Bad Param' }, { status: 500 });
     const workinghours = await prisma.workinghours.findFirst({
       where:{
-        id: parseInt(id)
+        id: id
       },
     });
     return NextResponse.json({ success: true, workinghours });
