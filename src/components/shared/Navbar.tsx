@@ -27,12 +27,12 @@ const Navbar =  async () => {
               <li className="text-lg font-bold text-white">
                 <LanguageSwitcher/>
               </li>
-              <li className="text-lg font-bold text-white">
+              {/* <li className="text-lg font-bold text-white">
                 <Link href="/faq">FAQ</Link>
               </li>
               <li className="text-lg font-bold text-white">
                 <Link href="/contact">{t('Contact')}</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
 

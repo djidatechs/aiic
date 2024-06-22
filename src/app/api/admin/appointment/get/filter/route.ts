@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient  } from '@prisma/client';
-import { appointment_get_filter_schema } from '@/lib/validator';
-import { constructFilter, parseSearchParams } from '@/lib/functions';
+import { appointment_commun_schema, appointment_get_filter_schema, client_commun_schem, payment_commun_schem } from '@/lib/validator';
+import { addFilters, constructFilter, parseSearchParams } from '@/lib/functions';
 
 
 const prisma = new PrismaClient();
@@ -27,28 +27,19 @@ export async function GET(req: NextRequest) {
 
     let where: any = {} ;
     
-    if (validatedParams.data?.payment?.id) constructFilter(where,'payment.id', validatedParams.data.payment.id );
-    if (validatedParams.data?.payment?.amount) constructFilter(where,'payment.amount', validatedParams.data.payment.amount );
-    if (validatedParams.data?.payment?.payed) constructFilter(where,'payment.payed', validatedParams.data.payment.payed);
-    if (validatedParams.data?.payment?.updated_At) constructFilter(where,'payment.updated_At', validatedParams.data.payment.updated_At);
-    if (validatedParams.data?.payment?.created_At) constructFilter(where,'payment.created_At', validatedParams.data.payment.created_At);
-    if (validatedParams.data?.payment?.recite_path) constructFilter(where,'recite_path', validatedParams.data.payment.recite_path)
-    if (validatedParams.data?.state) constructFilter(where,'state', validatedParams.data.state)
-    if (validatedParams.data?.created_At) constructFilter(where,'created_At', validatedParams.data.created_At)
-    if (validatedParams.data?.updated_At) constructFilter(where,'updated_At', validatedParams.data.updated_At)
-    if (validatedParams.data?.link) constructFilter(where,'link', validatedParams.data.link)
-    if (validatedParams.data?.clientId) constructFilter(where,'clientId', validatedParams.data.clientId)
-    if (validatedParams.data?.WorkingHoursId) constructFilter(where,'WorkingHoursId', validatedParams.data?.WorkingHoursId)
-    
+    addFilters(where, validatedParams?.data?.payment, payment_commun_schem , 'payment');
+    addFilters(where, validatedParams?.data, appointment_commun_schema);
+    addFilters(where, validatedParams?.data?.client, client_commun_schem, 'client')
 
     let select: any;
   
     if (validatedParams.data?.select) 
       select = Object.fromEntries(Object.entries(validatedParams.data?.select).map(([key, value]) => [key, value]))    
     else {
-      select = {payment:{select:{}}}
+      select = {payment:{select:{}},client : {select:{}} }
        Object.keys(prisma.appointment.fields).map(field=>select[field] = true)
        Object.keys(prisma.payment.fields).map(field=>select["payment"]["select"][field] = true)
+       Object.keys(prisma.client.fields).map(field=>select["client"]["select"][field] = true)
       }
     
 

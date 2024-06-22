@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import AfterRecite from './AfterRecite';
 import BeforeRecite from './BeforeRecite';
 import { useLocale } from '@/components/hooks/local';
+import { useRouter } from 'next/navigation';
 
 // Define the type for the appointment data
 interface AppointmentData {
@@ -25,6 +26,7 @@ export default function Home({ params }: HomeProps) {
   const [appointmentData, setAppointmentData] = useState<AppointmentData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const local = useLocale()
+  const router = useRouter()
   
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Home({ params }: HomeProps) {
       try {
         const response = await fetch(`/api/appointments/rv?link=${params.link}`);
 
-        if (!response.ok) throw new Error('Failed to fetch appointment details');
+        if (!response.ok) return router.replace("/")
 
         const data = await response.json();
         if (data.success && data.appointment) {

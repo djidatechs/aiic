@@ -40,10 +40,6 @@ const MyForm = () => {
       });
 
       if (response.ok) {
-        toast({
-          className: "bg-green-600 text-white font-semiBold",
-          description: t('appointment_success'), // Use translation key
-        });
         // form.reset();
         let { appointment } = await response.json();
 

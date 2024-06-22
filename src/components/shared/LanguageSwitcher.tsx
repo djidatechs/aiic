@@ -37,7 +37,7 @@ const Languageswitch = () => {
           onClick={() => setOpen(!open)}
           className="underline underline-offset-4"
         >
-        {local}
+        {local=='ar' ? 'ع': local}
         </p>
       </DropdownMenuTrigger>
       {open ? (

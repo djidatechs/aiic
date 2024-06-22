@@ -38,10 +38,10 @@ const AdminNavbar =  () => {
           <nav className={`lg:flex ${isMenuOpen ? "block" : "hidden"} w-full lg:w-auto`}>
             <ul className="lg:flex lg:items-center lg:gap-12 lg:space-x-4 mt-4 lg:mt-0">
               <li className="text-lg font-bold text-white">
-                <Link href="/admin/owner">Owner</Link>
+                <Link href="/admin">Booked</Link>
               </li>
               <li className="text-lg font-bold text-white">
-                <Link href="/signout">Contact</Link>
+                <Link href="/admin">Sessions</Link>
               </li>
             </ul>
           </nav>

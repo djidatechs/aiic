@@ -68,3 +68,20 @@ export function setNestedProperty(obj:any, path:string, value:any) {
   
   
 
+
+
+
+export const addFilters = (where:any, data:any, schema:any, prefix = '') => {
+    const keys = Object.keys(schema.shape);
+
+    keys.forEach(key => {
+        const fullKey = prefix ? `${prefix}.${key}` : key;
+        const schemaType = schema.shape[key]._def.typeName;
+
+        if (schemaType === 'object') {
+            addFilters(where, data[key], schema.shape[key], fullKey);
+        } else if (data?.[key] !== undefined) {
+            constructFilter(where, fullKey, data[key]);
+        }
+    });
+};

@@ -66,18 +66,14 @@ const workinghours_commun_schema = z.object({
   state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE"),
   id : id_schema,
   
-  
 })
-
-
-
-
 
 export const workinghours_create_schema = workinghours_commun_schema 
 export const workinghours_update_schema = workinghours_commun_schema.extend({id:id_schema}) // needs id
 export const workinghours_updatebatch_schema = z.array(workinghours_update_schema)
-export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject ).merge(z.object({appointment : z.object({id : id_schema,})})).merge(SelectFilterAid()).partial().optional()
 export const workinghours_get_by_id_schema = id_schema
+export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject )
+        .merge(z.object({appointment : z.object({id : id_schema,})})).merge(SelectFilterAid()).partial().optional()
 
 
 
@@ -91,7 +87,7 @@ export const workinghours_get_by_id_schema = id_schema
 /****************************************************************************************** */
 
 
-const payment_commun_schem = z.object({
+export const payment_commun_schem = z.object({
   id : id_schema,
   amount : z.string().transform(n=>parseInt(n)),
   payed : z.string().transform(n=>parseInt(n)),
@@ -99,6 +95,21 @@ const payment_commun_schem = z.object({
   created_At : z.string().transform(d=> new Date(d)),
   recite_path : z.string()
 })
+
+export const client_commun_schem = z.object({
+  id : id_schema,
+  firstName : z.string(),
+  lastName  : z.string(),
+  age       : z.string().transform(n=>parseInt(n)),
+  phoneNumbe: z.string(),
+  email     : z.string().email(),
+  wilaya    : z.string(),
+  ipAddress : z.string(),
+  created_At  : z.string().transform(d=> new Date(d)),
+  updated_At  : z.string().transform(d=> new Date(d)),
+})
+
+
 export const appointment_commun_schema = z.object({
   id : id_schema,
   link : z.string(),
@@ -107,12 +118,13 @@ export const appointment_commun_schema = z.object({
   WorkingHoursId: z.string().transform(n=>parseInt(n)),
   updated_At : z.string().transform(d=> new Date(d)),
   created_At : z.string().transform(d=> new Date(d)),
-  payment : payment_commun_schem
+  payment : payment_commun_schem,
+  client : client_commun_schem,
 })
 
 
 export const appointment_create_schema = appointment_commun_schema 
-export const appointment_update_schema = appointment_commun_schema.extend({id:id_schema}) // needs id
+export const appointment_update_schema = appointment_commun_schema
 export const appointment_updatebatch_schema = z.array(appointment_update_schema)
 // export const appointment_get_filter_schema = appointment_commun_schema.merge(createappointmentFilterAid1Schema()).merge(SelectFilterAid()).partial().optional()
 export const appointment_get_filter_schema = (traverseZodSchema(appointment_commun_schema) as z.AnyZodObject ).merge(SelectFilterAid()).partial().optional()
