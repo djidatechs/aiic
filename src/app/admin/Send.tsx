@@ -8,9 +8,8 @@ function Send() {
 
     const handleFetch = async () => {
         try {
-            const response = await fetch(`/api/admin/appointment/get/filter?payement[exact][id][exact]=14`);
+            const response = await fetch(`/api/admin/appointment/get/filter?`);
             const data = await response.json();
-
             if (response.ok) {
                 setResults(data);
                 setError(null);

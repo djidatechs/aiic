@@ -57,6 +57,10 @@ const select_schema: z.ZodType<any> = z.lazy(() =>
     z.union([z.boolean(), select_schema])
   ))
 
+  const order_schema: z.ZodType<any> = z.lazy(() => 
+    z.record(
+      z.union([z.enum(["asc", "desc"]), select_schema])
+    ))
 
 const workinghours_commun_schema = z.object({
   // [IMPORTANT : KEEP DATE AND DURATION IN TOP]
@@ -146,7 +150,7 @@ export const appointment_get_by_id_schema = id_schema
 function SelectFilterAid () {
   return z.object({
     select: select_schema,
-    order: z.record(z.string(), z.enum(["asc", "desc"])),
+    order: order_schema,
     page: z.string(),
     limit: z.string()
   });

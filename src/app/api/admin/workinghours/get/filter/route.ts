@@ -9,8 +9,8 @@ export async function GET(req: NextRequest) {
   try {
     const queryParams = req.nextUrl.searchParams;
     const params = parseSearchParams(queryParams)
+    console.log(params)
     const validatedParams = workinghours_get_filter_schema.safeParse(params);
-    console.log({params,validatedParams})
     if (!validatedParams.success) {
       return NextResponse.json({
         success: false,
@@ -41,7 +41,9 @@ export async function GET(req: NextRequest) {
 
     let orderBy: any;
     if (validatedParams.data?.order) {
-      orderBy = [validatedParams.data?.order]
+      const orders = validatedParams.data?.order
+      orderBy = Object.keys(orders).map((key)=>({[key]:orders[key]}))
+      // orderBy = [validatedParams.data?.order]
     }
 
     
@@ -57,9 +59,10 @@ export async function GET(req: NextRequest) {
     // Fetch total count for pagination purposes
     const totalCount = await prisma.workinghours.count({ where });
 
+
     return NextResponse.json({ 
       success: true, 
-      workinghours:res_workinghours, 
+      data:res_workinghours, 
       pagination: {
         total: totalCount,
         page,

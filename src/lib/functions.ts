@@ -1,4 +1,5 @@
 
+import { CellFormat, CellType } from '@/types/types';
 import { NextRequest, NextResponse } from 'next/server';
 import { SafeParseReturnType } from 'zod';
 
@@ -85,3 +86,37 @@ export const addFilters = (where:any, data:any, schema:any, prefix = '') => {
         }
     });
 };
+
+ function getFormattedDateTime(date = new Date()) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = String(date.getFullYear() % 100).padStart(2, '0'); // Get last two digits of the year
+  
+    const hours = String(date.getHours()).padStart(2, '0'); // Pad single digit hours with leading zero
+    const minutes = String(date.getMinutes()).padStart(2, '0'); // Pad single digit minutes with leading zero
+  
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+
+  function minutesToHoursMinutes(totalMinutes: number) {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    console.log((hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : ''))
+    return (hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : '');
+  }
+
+  export function getFormattedCell(accessor:any ,row : any, format : CellFormat, type? : CellType) {
+    if (type == CellType.NESTED) {
+        var match = accessor.match(/(.*)\[(.*)\]/)
+        if (! match) return "!"
+        row = row[match[1]]
+        accessor= match[2]
+    }
+    if (format==CellFormat.DATE) return getFormattedDateTime(new Date(row[accessor]))
+    if (format==CellFormat.DURATION) return minutesToHoursMinutes(row[accessor])
+    if (format==CellFormat.EXIST) return "YES"
+    
+    return row[accessor]
+}
+
+  

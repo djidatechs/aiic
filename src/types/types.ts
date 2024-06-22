@@ -1,17 +1,40 @@
-type GalleryTourProps = {
-  titleGallery?: string | undefined;
-  imageGallery?: File | undefined;
-}[];
+ export enum CellFormat {
+  FALSE,
+  DATE,
+  DURATION,
+  EXIST,
+ }
+ export enum CellType {
+  NESTED,
+  SIMPLE
+ }
+ // Type definitions
+export type Column<T> = {
+  header: string;
+  accessor: string;
+  format : CellFormat,
+  type : CellType,
+};
 
-export interface CreateTourFormProps {
-  tour: {
-    body: string;
-    title: string;
-    checkIn: Date;
-    checkOut: Date;
-    guests: string;
-    pricePerNight: string;
-    galleryTour: GalleryTourProps;
-    feauturedImage?: string;
-  };
+export type FetchDataParams = {
+  page: number;
+  limit: number;
+  orders : OrderCriteria[];
+  filters: FilterCriteria[];
+};
+
+export type OrderCriteria = {
+  column : string, 
+  value : "asc" | "desc" | null
 }
+export type FilterCriteria = {
+  column: string;
+  value: string;
+  condition: "exact" | "not" | "min" | "max";
+};
+
+export type TableProps<T> = {
+  columns: Column<T>[];
+  fetchData: (params: FetchDataParams) => Promise<{ data: T[] }>;
+  updateData: (data: Partial<T>[]) => Promise<void>;
+};
