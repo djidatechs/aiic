@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const WorkingHoursContext = createContext({});
 
-export const WorkingHoursProvider = ({ children }) => {
+export const WorkingHoursProvider = ({ children }: {children:any}) => {
   const [workingHours, setWorkingHours] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
