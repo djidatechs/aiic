@@ -15,7 +15,7 @@ import wilayas from "@/lib/wilayas.json";
 import { DatePicker } from "@/components/shared/DatePicker";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MyForm = () => {
   const { toast } = useToast();
@@ -66,6 +66,14 @@ const MyForm = () => {
       });
     }
   }
+  useEffect(()=>{
+    toast({
+      className: "bg-blue-600 text-white font-bold text-xl text-right",
+      title : "مرحبا بكم جميعا",
+      description: 'لا توجد مواعيد حاليا، سيتم فتح المواعيد في القريب العاجل، إبقوا مترقبين، و شكرا لتفهمكم',
+
+    });
+  },[])
 
   return (
     <Form {...form}>
