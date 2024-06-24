@@ -1,10 +1,13 @@
 "use client"
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 
 function Logout() {
     return (
-        <button onClick={()=>signOut()}>Signout</button>
+        <Link href=''  className="text-white space-x-2 font-bold text-xl flex items-center" onClick={()=>signOut()}>
+        Sign Out
+      </Link>
     );
 }
 

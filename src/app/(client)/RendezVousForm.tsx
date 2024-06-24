@@ -21,6 +21,7 @@ const MyForm = () => {
   const { toast } = useToast();
   const router = useRouter();
   const { t } = useTranslation("common"); // Initialize translation function
+  const { t:w } = useTranslation("wilayas"); // Initialize translation function
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
   });
@@ -150,7 +151,7 @@ const MyForm = () => {
                   <option value="">{t('select_wilaya')}</option> 
                   {wilayas.map((wilaya, index) => (
                     <option key={wilaya} value={wilaya}>
-                      {(index + 1) + "- " + wilaya}
+                      {(index + 1) + "- " + w(wilaya)}
                     </option>
                   ))}
                 </select>
