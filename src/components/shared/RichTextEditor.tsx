@@ -22,9 +22,9 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
         props.editorClassName
       )}
       toolbar={{
-        options: ["inline", "list", "link", "history"],
+        options: ["inline", "list"],
         inline: {
-          options: ["bold", "italic", "underline"],
+          options: [],
         },
       }}
       editorRef={(r) => {

@@ -30,6 +30,7 @@ model appointment {
   clientId       Int                        @unique(map: "Appointment_clientId_key")
   WorkingHoursId Int                        @unique(map: "Appointment_WorkingHoursId_key")
   link           String                     @unique(map: "Appointment_link_key") @default(cuid())
+  description    String?
   workinghours   workinghours               @relation(fields: [WorkingHoursId], references: [id], map: "Appointment_WorkingHoursId_fkey", onDelete: Cascade, onUpdate: Cascade)
   client         client                     @relation(fields: [clientId], references: [id], map: "Appointment_clientId_fkey", onDelete: Cascade, onUpdate: Cascade)
   payment        payment?
@@ -40,12 +41,15 @@ model appointment {
 }
 
 model admin_appointment_params {
-  id            Int         @id @default(autoincrement())
-  seen          Boolean     @default(false)
-  adminId       Int //ADMINISTRATION
+  id            Int     @id @default(autoincrement())
+  seen          Boolean @default(true)
+  adminId       Int
   appointmentId Int
-  admin         admin       @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  appointment   appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  admin       admin       @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  appointment appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([adminId, appointmentId])
 }
 
 model client {

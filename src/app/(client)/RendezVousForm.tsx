@@ -15,6 +15,7 @@ import wilayas from "@/lib/wilayas.json";
 import { DatePicker } from "@/components/shared/DatePicker";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
+import { useState } from "react";
 
 const MyForm = () => {
   const { toast } = useToast();
@@ -48,6 +49,7 @@ const MyForm = () => {
             className: "bg-green-600 text-white font-semiBold",
             description: t('appointment_success'), // Use translation key
           });
+          
           router.push(`/rv/${appointment.link}`)
         }
 
@@ -157,7 +159,7 @@ const MyForm = () => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="PaymentMethod"
           render={({ field }) => (
@@ -173,7 +175,7 @@ const MyForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <DatePicker  
           form={form}
           name="WorkingHour"

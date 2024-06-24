@@ -101,7 +101,6 @@ export const addFilters = (where:any, data:any, schema:any, prefix = '') => {
   function minutesToHoursMinutes(totalMinutes: number) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    console.log((hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : ''))
     return (hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : '');
   }
 
@@ -114,9 +113,23 @@ export const addFilters = (where:any, data:any, schema:any, prefix = '') => {
     }
     if (format==CellFormat.DATE) return getFormattedDateTime(new Date(row[accessor]))
     if (format==CellFormat.DURATION) return minutesToHoursMinutes(row[accessor])
-    if (format==CellFormat.EXIST) return "YES"
+    if (format==CellFormat.EXIST) return row && row[accessor] ? "YES" : "NO"
     
     return row[accessor]
 }
 
   
+
+export function formatDateTime(datetime:string) {
+  
+  const date = new Date(datetime);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+

@@ -23,14 +23,14 @@
 
     
       "processing_appointment": "Processing your appointment...",
-  "appointment_success": "Appointment successfully created",
+  "appointment_success": "Appointment successfully created, we will transfer you to another page, please wait.",
   "appointment_error": "Error creating the appointment",
   "oops": "Oops!",
   "last_name": "Last Name",
   "first_name": "First Name",
   "age": "Age",
   "phone_number": "Phone Number",
-  "email": "Email",
+  "email": "Email (optional)",
   "wilaya": "Wilaya",
   "select_wilaya": "Select a wilaya",
   "initial_payment_method": "Initial Payment Method",
@@ -62,15 +62,20 @@
   "remainderPaymentInfo": "The remaining payment of 3000 DA will be due at the appointment.",
   "uploadReceipt": "Use the button below to upload an image of your payment receipt.",
   "submitReceipt": "Submit Receipt",
-  "saveLinkInfo": "Please save this link to access this page later if you cannot make the payment immediately.",
+  "saveLinkInfo": "Please save this link to access this page later if you cannot make the payment immediately. In case the payment has not been made in the next 48h, the appointment will be canceled.",
+  "saveLinkInfoAfter": "Please save this link to access this page later.",
   "validImageFileAlert": "Please upload a valid image file.",
+  "invalideImageFormat": "Invalid file type. Only JPEG and PNG are accepted.",
+  "invalideImageSize" : "Invalid file size. Max size is 2MB.",
   "selectFileAlert": "Please select a file to upload.",
   "fileUploadSuccess": "File uploaded successfully",
   "fileUploadFailedAlert": "File upload failed",
 
+  "downloadInfo" : "Download the appointment's info",
+
   "confirmationMessage": "Thank you, your appointment is confirmed!",
   "appointmentDetails": "you have fully booked an appointment for {{ date }} at {{ startTime }} for the duration of {{duration}}min.",
-  "onlineMeetingLink": "Your appointment will be online. Here is your Google Meet link:",
+  "onlineMeetingLink": "Your appointment will be online. We will send to you the Google Meet Link via email or phone number",
   "physicalMeetingDetails": "Your appointment will be in-person. Please visit our local office at the following address:",
   "champobligatoire" : "Obligatory field"
   

@@ -1,35 +1,52 @@
 import { CellFormat, CellType, Column, FetchDataParams } from "@/types/types";
 import DashboardTable from "./DashSection";
+import WhEdit from "./WHEditModel";
+import WhCreate from "./WHCreateModel";
+import AppointmentModel from "./AppointmentModel";
 
 function WorkingHoursTable() {
+
     const columns: Column<any>[] = [
         {header:"date", accessor : "date", format: CellFormat.DATE, type : CellType.SIMPLE},
         {header:"duration", accessor : "duration",format:CellFormat.DURATION, type : CellType.SIMPLE},
         {header:"type", accessor : "type", format:CellFormat.FALSE, type : CellType.SIMPLE},
         {header:"state", accessor : "state", format:CellFormat.FALSE, type : CellType.SIMPLE},
         {header:"created_At", accessor : "created_At",format:CellFormat.DATE, type : CellType.SIMPLE},
-        {header:"appointment", accessor : "appointment[id]",format:CellFormat.EXIST, type : CellType.NESTED} 
+        {header:"appointment", accessor : "appointment[id]",format:CellFormat.EXIST, type : CellType.NESTED,
+            special_col: {
+                path:  "appointment.payment.isPayed",
+                y_cn : "bg-green-500/25 font-bold text-black cursor-pointer",
+                n_cn : "bg-orange-500/25 font-bold text-black cursor-pointer",
+                // redirect : "booked/appointment.id",
+                col_extend : true,
+            }
+        } 
     ]
 
     const fetchData = async (params : FetchDataParams)=> {
         const fetcher  = (await fetch(`/api/admin/workinghours/get/filter?${parseFilterParams (params,columns)}`)).json();
-        console.log({fetcher})
+        console.log(fetcher)
         return fetcher
     }
-    const updateData = async (params : any)=> {
-        await fetch(`/api/admin/workinghours/update/batch?${parseUpdateParams(params)}`);
-        return 
+    const updateRow = async (id : string|number)=> {
+        const resp = await (await fetch(`/api/admin/workinghours/get/${id}`)).json();
+        return resp?.workinghours
     }
     
    
         
     return (
+        <>
         <DashboardTable
         columns={columns}
         fetchData={fetchData}
-        updateData={updateData}
+        updateRow={updateRow}
+        EditModel={WhEdit}
+        CreateModel={WhCreate}
+        ColExtendModel= {AppointmentModel}
+        />
         
-      />
+      </>
     );
 }
 
@@ -44,21 +61,8 @@ function parseFilterParams (params:  FetchDataParams,columns:any)  {
         str += "&"+filter.column+"["+filter.condition+"]"+"="+filter.value
     })
     params.orders?.map(order=>{
-        var match = order.column.match(/(.*)\[(.*)\]/) //NESTED
-        if (! order.value ) return
-        if (match) str += "&order"+ "["+match[1]+"]"+"["+match[2]+"]"+"="+order.value
+        if (! order.value || order.column.match(/(.*)\[(.*)\]/) ) return
         else str += "&order"+ "["+order.column+"]"+"="+order.value
     })
-    
-
-
-    console.log({str})
     return str
-    
-}
-
-
-function parseUpdateParams (params:  FetchDataParams)  {
-    return params
-    
 }

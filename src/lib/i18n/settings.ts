@@ -13,5 +13,8 @@ export function getOptions(lang = FALLBACK_LOCALE, ns = 'common'): InitOptions {
     fallbackLng: FALLBACK_LOCALE,
     lng: lang,
     ns,
+    interpolation: {
+      escapeValue: false, // Disables escaping
+    },
   };
 }

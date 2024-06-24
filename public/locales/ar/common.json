@@ -20,14 +20,14 @@
     "attend_appointment": "احضر الموعد",
 
     "processing_appointment": "جارٍ معالجة موعدك...",
-    "appointment_success": "تم إنشاء الموعد بنجاح",
+    "appointment_success": "تم إنشاء الموعد بنجاح، سيتم تحويلك لصفحة اخرى، يرجى الانتظار",
     "appointment_error": "حدث خطأ أثناء إنشاء الموعد",
     "oops": "عذرًا!",
     "last_name": "اللقب",
     "first_name": "الاسم الأول",
     "age": "العمر",
     "phone_number": "رقم الهاتف",
-    "email": "البريد الإلكتروني",
+    "email": "(اختياري) البريد الإلكتروني",
     "wilaya": "ولاية",
     "select_wilaya": "اختر ولاية",
     "initial_payment_method": "طريقة الدفع الأولية",
@@ -58,15 +58,20 @@
     "remainderPaymentInfo": "سيتم دفع المبلغ المتبقي، 3000 دج، عند الموعد.",
     "uploadReceipt": "استخدم الزر أدناه لتحميل صورة من إيصال الدفع الخاص بك.",
     "submitReceipt": "إرسال الإيصال",
-    "saveLinkInfo": "يرجى حفظ هذا الرابط للوصول إلى هذه الصفحة لاحقًا إذا لم تتمكن من إجراء الدفع على الفور.",
+    "saveLinkInfo": "يرجى حفظ هذا الرابط للوصول إلى هذه الصفحة لاحقًا إذا لم تتمكن من إجراء الدفع على الفور، في حالة عدم دفع المبلغ خلال 48سا سيتم الغاء الموعد",
+    "saveLinkInfoAfter": "يرجى حفظ هذا الرابط للوصول إلى هذه الصفحة لاحقًا",
     "validImageFileAlert": "يرجى تحميل ملف صورة صالح.",
+    "invalideImageForamt" : "نوع الملف غير صالح. يتم قبول ملفات JPEG وPNG فقط.",
+    "invalideImageSize" : "حجم الملف غير صالح، أكبر حجم ممكن 2 ميجابايت.",
     "selectFileAlert": "الرجاء تحديد ملف لتحميله.",
     "fileUploadSuccess": "تم تحميل الملف بنجاح",
     "fileUploadFailedAlert": "فشل تحميل الملف",
 
+    "downloadInfo" : "حمل المعلومات عن الموعد",
+
     "confirmationMessage": "شكرًا، تم تأكيد موعدك!",
     "appointmentDetails": " لقد حجزت موعدًا كاملًا ليوم {{ date }} في {{ startTime }} لمدة {{duration}} دقيقة",
-    "onlineMeetingLink": "سيكون موعدك عبر الإنترنت. إليك رابط Google Meet الخاص بك:",
+    "onlineMeetingLink": "سيكون موعدك عبر الإنترنت. سنرسل إليك رابط Google Meet عبر البريد الإلكتروني أو رقم الهاتف",
     "physicalMeetingDetails": "سيكون موعدك وجهًا لوجه. يرجى زيارة مكتبنا المحلي في العنوان التالي:"
   }
   

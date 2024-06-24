@@ -76,3 +76,11 @@ export function calculateAverageRating(ratings: any) {
 
   return average;
 }
+
+
+export const localetime_options :any= {
+  timeZone: 'Africa/Algiers',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false // Use 24-hour format
+};

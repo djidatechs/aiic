@@ -3,15 +3,26 @@ import { PrismaClient  } from '@prisma/client';
 import { workinghours_get_filter_schema } from '@/lib/validator';
 import { constructFilter, parseSearchParams } from '@/lib/functions';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient().$extends({
+      result : {
+        payment : {
+          isPayed : {
+            needs : { payed:true , recite_path:true  },
+            compute(payment) {
+              return payment.payed > 0 || payment.recite_path != null
+            }
+          }
+        }
+      }
+    })
 
 export async function GET(req: NextRequest) {
   try {
     const queryParams = req.nextUrl.searchParams;
     const params = parseSearchParams(queryParams)
-    console.log(params)
     const validatedParams = workinghours_get_filter_schema.safeParse(params);
     if (!validatedParams.success) {
+      console.log(validatedParams.error)
       return NextResponse.json({
         success: false,
         error: 'Invalid query parameters',
@@ -29,12 +40,19 @@ export async function GET(req: NextRequest) {
     if (validatedParams.data?.type) constructFilter(where,'type', validatedParams.data.type);
     if (validatedParams.data?.duration) constructFilter(where,'duration', validatedParams.data.duration);
     if (validatedParams.data?.state) constructFilter(where,'state', validatedParams.data.state)
+      constructFilter(where, 'state', {
+        not: {
+          equals: 'REMOVED',
+        },
+      });
+      
+
     let select: any;
   
     if (validatedParams.data?.select) 
       select = Object.fromEntries(Object.entries(validatedParams.data?.select).map(([key, value]) => [key, value]))    
     else {
-      select = {appointment:{select:{id:true}}}
+      select = {appointment:{select:{id:true, payment:true} }}
        Object.keys(prisma.workinghours.fields).map(field=>select[field] = true)
       //  Object.keys(prisma.payment.fields).map(field=>select["appointment"]["select"][field] = true)
       }
@@ -47,6 +65,8 @@ export async function GET(req: NextRequest) {
     }
 
     
+
+
     const res_workinghours = await prisma.workinghours.findMany({
         where,
         select: select || undefined,
@@ -55,7 +75,6 @@ export async function GET(req: NextRequest) {
         take: limit,
   
       });
-
     // Fetch total count for pagination purposes
     const totalCount = await prisma.workinghours.count({ where });
 

@@ -4,6 +4,7 @@ import AfterRecite from './AfterRecite';
 import BeforeRecite from './BeforeRecite';
 import { useLocale } from '@/components/hooks/local';
 import { useRouter } from 'next/navigation';
+import { localetime_options } from '@/lib/utils';
 
 // Define the type for the appointment data
 interface AppointmentData {
@@ -39,11 +40,13 @@ export default function Home({ params }: HomeProps) {
         const data = await response.json();
         if (data.success && data.appointment) {
           const { date, type,  duration } = data.appointment.workinghours;
+          const datetime = new Date(date)
+          console.log(datetime.toLocaleDateString('en-GB', localetime_options).split(',')[0] )
           setAppointmentData({
-            date: toLocalISOString(new Date(date)).split('T')[0],
+            date: datetime.toLocaleDateString('en-GB', localetime_options).split(',')[0] ,
             duration,
             type,
-            startTime: new Date(date).toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
+            startTime: datetime.toLocaleTimeString('en-GB', localetime_options).slice(0, 5),
             name: `${data.appointment.client.lastName} ${data.appointment.client.firstName}`,
           });
 

@@ -2,6 +2,13 @@ import * as z from "zod";
 import wilayas from "./wilayas.json";
 
 
+/************************************************************************************** */
+/***************************                            ******************************* */
+/***************************       FIle validator       ******************************* */
+/***************************                            ******************************* */
+/************************************************************************************** */
+
+
 
 
 /************************************************************************************** */
@@ -25,7 +32,7 @@ export const FormSchema = z.object({
     return wilayas.includes(value); }, { message: "Wilaya invalide" }),
 
   WorkingHour : z.number({required_error:"Champ obligatoire : Date et heur"}),
-  PaymentMethod: PaymentMethod,
+  // PaymentMethod: PaymentMethod,
   additionalInfo: z.string().max(200).optional(),
 });
 export type FormValues = z.infer<typeof FormSchema>;
@@ -51,7 +58,7 @@ export type signInFormValues = z.infer<typeof signInFormSchema>;
 /***************************                            ******************************* */
 /************************************************************************************** */
 //id schema
-const id_schema = z.string().transform(n=>parseInt(n))
+const id_schema = z.string().transform(n=>parseInt(n)).or(z.number())
 const select_schema: z.ZodType<any> = z.lazy(() => 
   z.record(
     z.union([z.boolean(), select_schema])
@@ -67,18 +74,30 @@ const workinghours_commun_schema = z.object({
   date: z.string().transform((val) => new Date(val)),
   duration: z.number().int().positive(),
   type: z.enum(["InPerson", "Online"]),
-  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE"),
-  id : id_schema,
-  
+  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE"),  
+})
+const workinghours_commun_str_schema = workinghours_commun_schema.extend({duration: z.string().transform((n)=>parseInt(n))})
+const workinghours_commun_with_id_schema = workinghours_commun_schema.extend({id:id_schema})
+export const workinghours_client_schema = z.object({
+  // [IMPORTANT : KEEP DATE AND DURATION IN TOP]
+  date: z.string().optional(),
+  duration: z.number().int().positive().optional().or(z.string().transform(z=>parseInt(z))),
+  type: z.enum(["InPerson", "Online"]).optional(),
+  state: z.enum(["ACTIVE", "PAUSED", "REMOVED", "COMPLETED"]).default("ACTIVE").optional(),
 })
 
+export const workinghours_edit_schema = workinghours_client_schema.extend({ id : z.number().or(z.string())})
+
+export type workinghours_edit_values = z.infer<typeof workinghours_edit_schema>;
+export type workinghours_client_values = z.infer<typeof workinghours_client_schema>;
+
+
 export const workinghours_create_schema = workinghours_commun_schema 
-export const workinghours_update_schema = workinghours_commun_schema.extend({id:id_schema}) // needs id
+export const workinghours_update_schema = workinghours_commun_with_id_schema.partial() // needs id
 export const workinghours_updatebatch_schema = z.array(workinghours_update_schema)
 export const workinghours_get_by_id_schema = id_schema
-export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_schema) as z.AnyZodObject )
+export const workinghours_get_filter_schema = (traverseZodSchema(workinghours_commun_str_schema) as z.AnyZodObject )
         .merge(z.object({appointment : z.object({id : id_schema,})})).merge(SelectFilterAid()).partial().optional()
-
 
 
 

@@ -9,7 +9,6 @@ export async function PUT(req: NextRequest) {
     const updateSchema = workinghours_update_schema
     const data  = await req.json();
     const validatedData = updateSchema.safeParse(data);
-    console.log(validatedData)
 
     if (!validatedData.success) {
       console.log({errors: validatedData.error})

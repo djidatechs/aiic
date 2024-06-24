@@ -7,8 +7,17 @@ export async function POST(req: NextRequest) {
     try {
         
         const data = await req.json();
-        const validatedData = workinghours_create_schema.parse(data);
-        await prisma.workinghours.create({ data: validatedData });
-        return NextResponse.json({ success: true });
+        const validatedData = workinghours_create_schema.safeParse(data);
+        if (!validatedData.success) {
+            console.log(validatedData.error)
+            return NextResponse.json({
+              success: false,
+              error: 'Invalid query parameters',
+              errors: validatedData.error?.errors.map((err) => err.message) || [],
+            }, { status: 400 });
+          }
+
+        const wh = await prisma.workinghours.create({ data: validatedData.data });
+        return NextResponse.json({ success: true , wh });
     } catch (error) { return NextResponse.json({ success: false, error }, { status: 500 });}
 }

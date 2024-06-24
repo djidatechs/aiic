@@ -21,15 +21,14 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
   const handleDownload = () => {
     const currentUrl = window.location.href;
     const isOnline = appointmentData.type === 'Online';
-    const meetingLink = isOnline ? 'https://meet.google.com/your-meeting-link' : ''; //todo
     const bureauLocation = !isOnline ? general.bureau : '';
     
     const appointmentInfo = `${t('appointmentDetails', appointmentData)}
       \nType نوع اللقاء: ${appointmentData.type}
       \nDate التاريخ: ${appointmentData.date}
-      \NTime Temp الوقت: ${appointmentData.startTime}
+      \nTime Temp الوقت: ${appointmentData.startTime}
       \nURL الوصل: ${currentUrl}
-      ${isOnline ? `\n\nGoogle Meet Link عنوان اللقاء الالكتروني: ${meetingLink}` : `\n\nBureau Location عنوان المكتب: ${bureauLocation}`}
+      ${isOnline ? `\n\n${t('onlineMeetingLink')}` : `\n\nBureau Location عنوان المكتب: ${bureauLocation}`}
     `;
 
     const blob = new Blob([appointmentInfo], { type: 'text/plain' });
@@ -79,7 +78,7 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
           className={`px-4 py-2 bg-blue-500 text-white rounded-lg ${downloaded ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={downloaded}
         >
-          Télécharger les informations du rendez-vous
+          {t('downloadInfo')}
         </button>
       </div>
       <div className="mt-6 p-4 bg-gray-100 rounded-lg flex items-center justify-between">
@@ -94,7 +93,7 @@ export default function AfterRecite({ appointmentData }: AfterReciteProps) {
         </button>
       </div>
       <p className="mt-2 bg-yellow-400 p-3 font-semibold text-center text-sm text-black rounded-lg">
-        {t('saveLinkInfo')}
+        {t('saveLinkInfoAfter')}
       </p>
     </>
   );

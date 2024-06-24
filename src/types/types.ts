@@ -1,8 +1,11 @@
+import {  ElementType, ReactNode } from "react";
+
  export enum CellFormat {
   FALSE,
   DATE,
   DURATION,
   EXIST,
+  VERIFY,
  }
  export enum CellType {
   NESTED,
@@ -14,6 +17,7 @@ export type Column<T> = {
   accessor: string;
   format : CellFormat,
   type : CellType,
+  special_col? : {path: string , y_cn : string , n_cn:string , redirect? : string , col_extend?:boolean },
 };
 
 export type FetchDataParams = {
@@ -35,6 +39,9 @@ export type FilterCriteria = {
 
 export type TableProps<T> = {
   columns: Column<T>[];
-  fetchData: (params: FetchDataParams) => Promise<{ data: T[] }>;
-  updateData: (data: Partial<T>[]) => Promise<void>;
+  fetchData: (params: FetchDataParams) => Promise<{ data: T[] , pagination : any }>;
+  updateRow: (id:string|number) =>  Promise<any>;
+  EditModel : ElementType;
+  CreateModel : ElementType;
+  ColExtendModel:ElementType;
 };

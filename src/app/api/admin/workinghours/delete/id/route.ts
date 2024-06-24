@@ -3,19 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { workinghours_get_by_id_schema } from '@/lib/validator';
-const prisma = new PrismaClient().$extends({
-  result : {
-    payment : {
-      isPayed : {
-        needs : { payed:true , recite_path:true  },
-        compute(payment) {
-          return payment.payed > 0 || payment.recite_path != null
-        }
-      }
-    }
-  }
-})
-
+const prisma = new PrismaClient();
 export  async function GET(req: NextRequest, {params}:any) {
   try {
     const validatedParams = workinghours_get_by_id_schema.safeParse(params.id);
@@ -29,14 +17,10 @@ export  async function GET(req: NextRequest, {params}:any) {
     }
     const id = validatedParams.data
     if (!id || isNaN(id)) return  NextResponse.json({ success: false, error:'Bad Param' }, { status: 500 });
-    let select : any; 
-    select = {appointment:{select:{id:true, payment:true} }}
-    Object.keys(prisma.workinghours.fields).map(field=>select[field] = true)
     const workinghours = await prisma.workinghours.findFirst({
       where:{
         id: id
       },
-      select : select || undefined
     });
     return NextResponse.json({ success: true, workinghours });
   } catch (error) {

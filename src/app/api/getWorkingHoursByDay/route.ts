@@ -1,3 +1,4 @@
+import { localetime_options } from '@/lib/utils';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -17,6 +18,7 @@ export const GET = async (req: Request) => {
     // Fetch working hours for the specified date
     const workingHours = await prisma.workinghours.findMany({
       where: {
+        state : "ACTIVE",
         date: {
           gte: new Date(`${date}T00:00:00.000Z`),
           lt: new Date(`${date}T23:59:59.999Z`),
@@ -32,10 +34,12 @@ export const GET = async (req: Request) => {
       },
     });
     
+    
     const res = workingHours.map((wh) =>{ 
+      let date = new Date(wh.date);
       return ({
       id: wh.id,
-      startTime: wh.date.toUTCString().split(' ')[4].split(':').slice(0, 2).join(':'),
+      startTime: date.toLocaleTimeString('en-GB', localetime_options).slice(0, 5),
       type: wh.type,
       duration: wh.duration,
       available: wh.appointment == undefined,
@@ -53,6 +57,7 @@ export const GET = async (req: Request) => {
 
         return new Response(JSON.stringify(res), { status: 200 });
   } catch (error) {
+    
         return new Response(JSON.stringify({ error: 'Failed to fetch working hours' }), { status: 500 });
   }
 };

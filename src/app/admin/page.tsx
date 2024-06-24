@@ -10,14 +10,13 @@ const Home =  () => {
       redirect("/admin/auth")
     },
   })
-  console.log({data})
   if (status === "loading") {
     return "Loading"
   }
 
     return (
 
-    <section className="bg-gradient-to-r from-white/95 to-red-100/5 py-8 sm:py-16" aria-labelledby="hero-heading">
+    <section className="bg-slate-300 sm:py-16" aria-labelledby="hero-heading">
       <div className="mx-auto px-4 sm:px-6 md:px-8">
         <div className="flex flex-col lg:flex-row lg:space-x-8 items-center">
       <WorkingHoursTable/>

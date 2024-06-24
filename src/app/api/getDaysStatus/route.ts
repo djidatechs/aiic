@@ -1,108 +1,3 @@
-// // pages/api/getDaysStatus
-// import { PrismaClient } from '@prisma/client';
-
-
-// const prisma = new PrismaClient();
-
-// export const GET = async () => {
-//   try {
-//     // Fetch all working hours
-//     const workingHours = await prisma.workinghours.findMany({
-//       include: {
-        
-//         appointment: {
-//           include: {
-//             client: true,
-//             payment: true,
-//           },
-//         },
-//       },
-//     });
-//     // Initialize sets to store date strings
-   
-//     const filledDays = [];
-//     const filledNoPaymentDays = [];
-//     const availableDays = [];
-
-//     // Group working hours by date and categorize them
-//     const groupedByDate = workingHours.reduce((acc:any, curr) => {
-//       const date = toLocalISOString(curr.date)
-
-//       if (!acc[date]) {
-//         acc[date] = [];
-//       }
-
-//       acc[date].push(curr);
-//       return acc;
-//     }, {});
-
-//     // Process each grouped day
-//     for (const [date, hours] of Object.entries(groupedByDate)) {
-//       const filledHours = [];
-//       const filledNoPaymentHours = [];
-//       const availableHours = [];
-    
-//       for (const hour of (hours as any) ) {
-//         const appointment = hour.appointment;
-    
-//         if (!appointment) {
-//           availableHours.push(hour);
-//         } else {
-//           const payment = appointment.payment;          
-//           if (payment && (payment.payed > 0 || payment.recite_path)) {
-//             filledHours.push(hour);
-//           } else {
-//             filledNoPaymentHours.push(hour);
-//           }
-//         }
-//       }
-      
-//       const len = (hours as any).length;
-    
-//       if (availableHours.length > 0) {
-//         availableDays.push({ day: date, workingHoursInstances: availableHours });
-//       } else if (filledHours.length > 0 && filledHours.length === len) {
-//         filledDays.push({ day: date, workingHoursInstances: filledHours });
-//       } else if (filledNoPaymentHours.length === len) {
-//         filledNoPaymentDays.push({ day: date, workingHoursInstances: filledNoPaymentHours });
-//       } else {
-//         // New condition to handle mixed appointments
-//         filledNoPaymentDays.push({ day: date, workingHoursInstances: [...filledHours, ...filledNoPaymentHours] });
-//       }
-//     }  
-//     const res = {
-//       filled_days: filledDays,
-//       maybe_filled_days: filledNoPaymentDays,
-//       allowed_days: availableDays,
-//     };
-    
-     
-//     return Response.json(res , {status:200});
-    
-
-
-
-//   } catch (error) {
-//     console.log(error)
- 
-     
-//     return  Response.json({ error: 'Failed to fetch days status' },{status:500});
-//   } 
-// };
-
-
-
-// function toLocalISOString(date:Date) {
-//   const pad = (num:any) => num.toString().padStart(2, '0');
-//   const year = date.getFullYear();
-//   const month = pad(date.getMonth() + 1); // Months are 0-based
-//   const day = pad(date.getDate());
-//   return `${year}-${month}-${day}`;
-// }
-
-
-
-// pages/api/getDaysStatus
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -111,6 +6,7 @@ export const GET = async () => {
   try {
     // Fetch all working hours
     const workingHours = await prisma.workinghours.findMany({
+      where: { state: "ACTIVE" },
       include: {
         appointment: {
           include: {
@@ -140,39 +36,33 @@ export const GET = async () => {
 
     // Process each grouped day
     for (const [date, hours] of Object.entries(groupedByDate)) {
-      const filledHours = [];
-      const filledNoPaymentHours = [];
-      const availableHours = [];
+      let hasAvailable = false;
+      let hasNoPayment = false;
 
       for (const hour of hours as any) {
         const appointment = hour.appointment;
 
         if (!appointment) {
-          availableHours.push(hour);
+          hasAvailable = true;
         } else {
           const payment = appointment.payment;
-          if (payment && (payment.payed > 0 || payment.recite_path)) {
-            filledHours.push(hour);
-          } else {
-            filledNoPaymentHours.push(hour);
+          if (!payment || (payment.payed <= 0 && !payment.recite_path)) {
+            hasNoPayment = true;
           }
+        }
+
+        // If both flags are already true, no need to check further
+        if (hasAvailable && hasNoPayment) {
+          break;
         }
       }
 
-      const len =( hours as any).length;
-
-      // Logging for debugging
-      console.log(`Date: ${date}, Total Hours: ${len}, Available: ${availableHours.length}, Filled: ${filledHours.length}, Filled No Payment: ${filledNoPaymentHours.length}`);
-
-      if (availableHours.length === len) {
-        availableDays.push({ day: date, workingHoursInstances: availableHours });
-      } else if (filledHours.length === len) {
-        filledDays.push({ day: date, workingHoursInstances: filledHours });
-      } else if (filledNoPaymentHours.length === len) {
-        filledNoPaymentDays.push({ day: date, workingHoursInstances: filledNoPaymentHours });
+      if (hasAvailable) {
+        availableDays.push({ day: date, workingHoursInstances: hours });
+      } else if (hasNoPayment) {
+        filledNoPaymentDays.push({ day: date, workingHoursInstances: hours });
       } else {
-        // Handle mixed cases
-        filledNoPaymentDays.push({ day: date, workingHoursInstances: [...filledHours, ...filledNoPaymentHours] });
+        filledDays.push({ day: date, workingHoursInstances: hours });
       }
     }
 
