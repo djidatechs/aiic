@@ -5,6 +5,7 @@ import BeforeRecite from './BeforeRecite';
 import { useLocale } from '@/components/hooks/local';
 import { useRouter } from 'next/navigation';
 import { localetime_options } from '@/lib/utils';
+import { Metadata } from 'next';
 
 // Define the type for the appointment data
 interface AppointmentData {
@@ -21,6 +22,8 @@ interface HomeProps {
     link: string;
   };
 }
+
+
 
 export default function Home({ params }: HomeProps) {
   const [fileUploaded, setFileUploaded] = useState<boolean>(false);
@@ -95,6 +98,7 @@ function Skeleton() {
   return (
     <main className="pb-11 flex justify-center" >
       <div className="mx-auto w-[95%] sm:w-[80%] max-w-[700px] p-4 bg-white rounded-xl my-6 shadow-lg animate-pulse">
+        
         <div className="h-4 bg-gray-300 rounded w-3/4 mb-4"></div>
         <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
         <div className="h-4 bg-gray-300 rounded w-full mb-4"></div>
