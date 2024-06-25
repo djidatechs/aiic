@@ -11,11 +11,12 @@ import LoadingButton from "@/components/shared/LoadingButton";
 import RichTextEditor from "@/components/shared/RichTextEditor";
 import { FormSchema, FormValues } from "@/lib/validator";
 import { draftToMarkdown } from "markdown-draft-js";
-import wilayas from "@/lib/wilayas.json";
 import { DatePicker } from "@/components/shared/DatePicker";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect,  } from "react";
+const WilayasSelect = lazy(() => import("@/components/shared/WilayaSelect"));
+
 
 const MyForm = () => {
   const { toast } = useToast();
@@ -148,26 +149,10 @@ const MyForm = () => {
             </FormItem>
           )}
         />
-      <FormField
-          control={form.control}
-          name="wilaya"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('wilaya')}</FormLabel> 
-              <FormControl>
-                <select {...field} className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-400">
-                  <option value="">{t('select_wilaya')}</option> 
-                  {wilayas.map((wilaya, index) => (
-                    <option key={wilaya} value={wilaya}>
-                      {(index + 1) + "- " + w(wilaya)}
-                    </option>
-                  ))}
-                </select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Suspense fallback={<div>{t('loading')}</div>}>
+          <WilayasSelect form={form}/>
+        </Suspense>
+     
         {/* <FormField
           control={form.control}
           name="PaymentMethod"

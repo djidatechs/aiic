@@ -9,10 +9,10 @@ export default  function layout({
   
   return (
    
-          <>
+          <div className="">
           <Navbar />
           {children}
           <Footer/>
-          </>
+          </div>
   );
 }

@@ -25,6 +25,9 @@ const Navbar =  async () => {
                 <Link href="/">{t('Accueil')}</Link>
               </li>
               <li className="text-lg font-bold text-white">
+                <Link href="/about">{t('about')}</Link>
+              </li>
+              <li className="text-lg font-bold text-white">
                 <LanguageSwitcher/>
               </li>
               {/* <li className="text-lg font-bold text-white">

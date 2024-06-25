@@ -41,7 +41,6 @@ export default function Home({ params }: HomeProps) {
         if (data.success && data.appointment) {
           const { date, type,  duration } = data.appointment.workinghours;
           const datetime = new Date(date)
-          console.log(datetime.toLocaleDateString('en-GB', localetime_options).split(',')[0] )
           setAppointmentData({
             date: datetime.toLocaleDateString('en-GB', localetime_options).split(',')[0] ,
             duration,

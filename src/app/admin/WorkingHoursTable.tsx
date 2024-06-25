@@ -25,7 +25,6 @@ function WorkingHoursTable() {
 
     const fetchData = async (params : FetchDataParams)=> {
         const fetcher  = (await fetch(`/api/admin/workinghours/get/filter?${parseFilterParams (params,columns)}`)).json();
-        console.log(fetcher)
         return fetcher
     }
     const updateRow = async (id : string|number)=> {

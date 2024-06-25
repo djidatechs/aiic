@@ -52,12 +52,14 @@
 
     "Accueil" : "Accueil",
     "Contact" : "Contact",
+    "about" : "Qui sommes-nous",
 
     "welcomeMessage": "Bienvenue à bord de votre projet d'immigration au Canada !",
     "reservationThanks": "merci pour votre réservation le {{ date }} à {{ startTime }} pour une durée de {{duration}}min .",
     "onlinePaymentInfo": "Effectuez un paiement de 6000 DA pour valider votre rendez-vous.",
     "offlinePaymentInfo": "Effectuez un paiement initial de 3000 DA pour valider votre rendez-vous.",
     "remainderPaymentInfo": "Le reste du paiement, de 3000 DA, se fera lors du rendez-vous.",
+    "PaymentAdress" : "Compte de paiement : ",
     "uploadReceipt": "Utilisez le bouton ci-dessous pour télécharger une image de votre reçu de paiement.",
     "submitReceipt": "Soumettre le reçu",
     "saveLinkInfo": "Veuillez enregistrer ce lien pour accéder à cette page plus tard si vous ne pouvez pas effectuer le paiement immédiatement. Dans le cas où le paiement n'a pas été effectué dans les prochaines 48h, le rendez-vous sera annulé.",

@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/dropdown-menu"; // Assuming this is the path to your DropdownMenu components
 import { useTranslation } from "@/lib/i18n/client";
 import { switchLocaleAction } from "@/lib/i18n/switchLocal";
-import { useLocale } from "../hooks/local";
-
+import { useRouter } from "next/navigation";
 
 const PhoneMenu = () => {
   const [open, setOpen] = useState(false);
   const {t}= useTranslation("common")
   const [menuItems, setMenuItems] = useState<any[]>([]);
+  const router = useRouter()
   const  changeLanguage = (lng:string) => {
     switchLocaleAction(lng)
   };
@@ -59,17 +59,14 @@ const PhoneMenu = () => {
         <DropdownMenuContent>
           <DropdownMenuGroup>
           <Fragment key={"acc"}>
-                <DropdownMenuItem>{t('Accueil')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=>router.push('/')}>{t('Accueil')}</DropdownMenuItem>
                 <DropdownMenuSeparator />
           </Fragment>
           <Fragment key={"faq"}>
-                <DropdownMenuItem>FAQ</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=>router.push('/about')}>{t('about')}</DropdownMenuItem>
                 <DropdownMenuSeparator />
           </Fragment>
-          <Fragment key={"contact"}>
-                <DropdownMenuItem>{t('Contact')}</DropdownMenuItem>
-                <DropdownMenuSeparator />
-          </Fragment>
+
           <div className="min-h-[2px] h-[2px] w-full min-w-full bg-red-600 px-1"></div>
           </DropdownMenuGroup>
           <DropdownMenuGroup>

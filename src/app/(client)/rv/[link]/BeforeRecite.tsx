@@ -117,12 +117,14 @@ export default function BeforeRecite({ appointmentData, link }: BeforeReciteProp
       {appointmentData.type === 'Online' ? (
         <ul className="list-disc list-inside mt-4">
           <li>{t('onlinePaymentInfo')}</li>
+          <li>{t('PaymentAdress')} {process.env.NEXT_PUBLIC_PAYMENT_ADRESS}</li>
           <li>{t('uploadReceipt')}</li>
         </ul>
       ) : (
         <>
           <ul className="list-disc list-inside mt-4">
             <li>{t('offlinePaymentInfo')}</li>
+            <li>{t('PaymentAdress')} {process.env.NEXT_PUBLIC_PAYMENT_ADRESS}</li>
             <li>{t('uploadReceipt')}</li>
           </ul>
           <p className="mt-4">

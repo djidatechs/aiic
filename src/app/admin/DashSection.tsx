@@ -233,7 +233,6 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
                   })
                   if (walk != undefined && walk != null) {
                     red = "/admin/"+b+ "/" + walk
-                    console.log(red)
                   }
                 }
                 return (
@@ -335,7 +334,6 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
         <CreateModel
         setLoading={setPageLoading}  
         OnClose={(newRow:any) => {
-          console.log({newRow})
           if (newRow != null ) handleNewRow(newRow);  
             setCreate(false);
           }}

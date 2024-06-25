@@ -53,6 +53,7 @@
 
   "Accueil" : "Home",
   "Contact" : "Contact",
+  "about" : "About Us",
 
 
   "welcomeMessage": "Welcome aboard to your Canada immigration project!",
@@ -60,6 +61,7 @@
   "onlinePaymentInfo": "Make a payment of 6000 DA to confirm your appointment.",
   "offlinePaymentInfo": "Make an initial payment of 3000 DA to confirm your appointment.",
   "remainderPaymentInfo": "The remaining payment of 3000 DA will be due at the appointment.",
+  "PaymentAdress" : "Payment account : ",
   "uploadReceipt": "Use the button below to upload an image of your payment receipt.",
   "submitReceipt": "Submit Receipt",
   "saveLinkInfo": "Please save this link to access this page later if you cannot make the payment immediately. In case the payment has not been made in the next 48h, the appointment will be canceled.",

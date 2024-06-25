@@ -44,7 +44,6 @@ const WhCreate = ({  OnClose} : { OnClose: (newWh:any)=>any}) => {
           description: "Update successful",
         });
         let data = await response.json()
-        console.log({data})
         if (data?.wh ) setNewWh(data.wh)
       } else {
         const errorData = await response.json();

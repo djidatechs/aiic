@@ -32,9 +32,9 @@ export  async function GET(req: NextRequest, {params}:any) {
     });
 
     //seen by admin 
-    const adminId=  (await getServerSession(authOptions) as any )?.admin?.id as number
-    console.log( await getServerSession(authOptions))
-    console.log({adminId})
+    // const adminId=  (await getServerSession(authOptions) as any )?.admin?.id as number
+    // console.log( await getServerSession(authOptions))
+    // console.log({adminId})
     // if (appointment?.id)
     // if (! ( appointment?.params && appointment?.params?.some( (param) => param.adminId== adminId &&  param.seen == true)))
     //     await prisma.admin_appointment_params.upsert({

@@ -38,8 +38,8 @@ export async function POST(req: NextRequest) {
       });
     });
 
-    console.log({client})
-    client.get(".", (err,str)=>{console.log(err,str)})
+    
+
     await new Promise<void>((resolve, reject) => {
       client.cwd(process.env.FTP_UPLOAD_DIR as string, (err) => {
         if (err) reject(err);

@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
         const data = await req.json();
         const validatedData = workinghours_create_schema.safeParse(data);
         if (!validatedData.success) {
-            console.log(validatedData.error)
             return NextResponse.json({
               success: false,
               error: 'Invalid query parameters',
