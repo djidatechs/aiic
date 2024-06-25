@@ -64,6 +64,7 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
   };
 
   const handleSetOrders = (column: string, type: CellType, rightClick = false) => {
+    console.log(column)
     setOrders((orders: any) => {
       let exist = false;
       const newOrders = orders.map((order: any) => {
@@ -72,6 +73,7 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
           return {
             column: order.column,
             value: rightClick ? null : order.value === "desc" ? "asc" : "desc",
+            type : type,
           };
         }
         return order;
@@ -183,7 +185,47 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
             APPLY
           </button>
         </div>
+        <div>
+                  <button
+                    onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded disabled:opacity-50"
+                  >
+                    Previous
+                  </button>
+                  <span className="mx-2">
+                    Page {currentPage} of {totalPagination.totalPages}
+                  </span>
+                  <button
+                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPagination.totalPages))}
+                    disabled={currentPage === totalPagination.totalPages}
+                    className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+
+                  {/* New Input and Go Button */}
+                  <div className="inline-flex items-center mx-2">
+                    <input
+                      type="number"
+                      value={inputPage}
+                      onChange={handleInputChange}
+                      className="px-2 py-1 border border-gray-300 rounded"
+                      placeholder="Go to page"
+                      min="1"
+                      max={totalPagination.totalPages}
+                    />
+                    <button
+                      onClick={handleGoToPage}
+                      className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded"
+                      disabled={!inputPage.length || isNaN(parseInt(inputPage)) || parseInt(inputPage, 10) < 1 || parseInt(inputPage, 10) > totalPagination.totalPages}
+                    >
+                      Go
+                    </button>
+                  </div>
+                </div>
       </div>
+      
       <Table className="min-w-full">
         <TableHeader>
           <TableRow className="select-none bg-red-500 hover:bg-red-500 cursor-pointer">
@@ -216,6 +258,7 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
               {columns.map((col, colIndex) => {
                 let cn : string = "" ; 
                 let red : string = "";
+                let onclick_id : any ; 
                 if (col.special_col?.path) {
                   let walk  : any = row ;
                   col.special_col.path.split(".").map(ac => {
@@ -241,7 +284,8 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
                   try {
                   if (col.special_col?.redirect && red.length)  router.push(red)
                   else if (col.special_col?.col_extend) setColExtend(
-                    getFormattedCell(col.accessor, row, CellFormat.FALSE, col.type) as string | number
+                    
+                    getFormattedCell(col.accessor, row, CellFormat.FALSE, col.type,col.special_col?.onclick_id) as string | number
                   )
                   }catch{}
                   }}>
@@ -276,45 +320,7 @@ const DashboardTable = <T extends { id: string | number }>({ columns, fetchData,
                     <option value={50}>50</option>
                   </select>
                 </div>
-                <div>
-      <button
-        onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-        disabled={currentPage === 1}
-        className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded disabled:opacity-50"
-      >
-        Previous
-      </button>
-      <span className="mx-2">
-        Page {currentPage} of {totalPagination.totalPages}
-      </span>
-      <button
-        onClick={() => handlePageChange(Math.min(currentPage + 1, totalPagination.totalPages))}
-        disabled={currentPage === totalPagination.totalPages}
-        className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded disabled:opacity-50"
-      >
-        Next
-      </button>
-
-      {/* New Input and Go Button */}
-      <div className="inline-flex items-center mx-2">
-        <input
-          type="number"
-          value={inputPage}
-          onChange={handleInputChange}
-          className="px-2 py-1 border border-gray-300 rounded"
-          placeholder="Go to page"
-          min="1"
-          max={totalPagination.totalPages}
-        />
-        <button
-          onClick={handleGoToPage}
-          className="px-4 py-2 mx-1 bg-gray-200 text-gray-800 rounded"
-          disabled={!inputPage.length || isNaN(parseInt(inputPage)) || parseInt(inputPage, 10) < 1 || parseInt(inputPage, 10) > totalPagination.totalPages}
-        >
-          Go
-        </button>
-      </div>
-    </div>
+               
               </div>
             </TableCell>
           </TableRow>

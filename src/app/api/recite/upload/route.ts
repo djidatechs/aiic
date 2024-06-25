@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     );
   } finally {
     // Disconnect Prisma client after operation
-    await prisma.$disconnect();
+    // await prisma.$disconnect();
   }
 }
 

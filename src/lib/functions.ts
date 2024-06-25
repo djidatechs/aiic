@@ -104,18 +104,19 @@ export const addFilters = (where:any, data:any, schema:any, prefix = '') => {
     return (hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : '');
   }
 
-  export function getFormattedCell(accessor:any ,row : any, format : CellFormat, type? : CellType) {
+  export function getFormattedCell(accessor:any ,row : any, format : CellFormat, type? : CellType, forceNestedAccessor? : string) {
     if (type == CellType.NESTED) {
         var match = accessor.match(/(.*)\[(.*)\]/)
         if (! match) return "!"
         row = row[match[1]]
-        accessor= match[2]
+        accessor= forceNestedAccessor || match[2]
+        if (!row) return "NO"
     }
     if (format==CellFormat.DATE) return getFormattedDateTime(new Date(row[accessor]))
     if (format==CellFormat.DURATION) return minutesToHoursMinutes(row[accessor])
     if (format==CellFormat.EXIST) return row && row[accessor] ? "YES" : "NO"
     
-    return row[accessor]
+    return row ? row[accessor] : "NO"
 }
 
   

@@ -188,12 +188,12 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
                               checked={selectedTime === wh.id}
                               className="form-checkbox h-5 w-5"
                             />
-                            <span className={
+                            <span dir={`${local === 'ar' ? 'rtl' : 'ltr' }`} className={
                               wh.available && wh.type === "Online" ? "text-cyan-600"
                                 : wh.available ? "text-green-600"
                                   : wh.confirmed ? "text-red-600"
                                     : "text-orange-600"
-                            }>{wh.startTime} ({minutesToHoursMinutes(wh.duration)}) {wh.available && wh.type === "Online" ? t("online") : ""}</span>
+                            }>{wh.startTime} ({minutesToHoursMinutes(wh.duration,local=="ar")}) {wh.available && wh.type === "Online" ? t("online") : ""}</span>
                           </Label>
                         ))
                       )}
@@ -217,8 +217,8 @@ function toLocalISOString(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-function minutesToHoursMinutes(totalMinutes: number) {
+function minutesToHoursMinutes(totalMinutes: number, ar=false) {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
-  return (hours ? hours + 'h' : '') + (minutes ? minutes + 'm' : '');
+  return (hours ? hours + ( !ar ?'h' : 'سا') : '') + (minutes ? minutes + 'm' : '');
 }

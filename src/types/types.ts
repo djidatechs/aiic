@@ -17,7 +17,7 @@ export type Column<T> = {
   accessor: string;
   format : CellFormat,
   type : CellType,
-  special_col? : {path: string , y_cn : string , n_cn:string , redirect? : string , col_extend?:boolean },
+  special_col? : {path: string , y_cn : string , n_cn:string , redirect? : string , col_extend?:boolean, order_by? : string, onclick_id? : string },
 };
 
 export type FetchDataParams = {
@@ -29,7 +29,8 @@ export type FetchDataParams = {
 
 export type OrderCriteria = {
   column : string, 
-  value : "asc" | "desc" | null
+  value : "asc" | "desc" | null,
+  type : CellType
 }
 export type FilterCriteria = {
   column: string;

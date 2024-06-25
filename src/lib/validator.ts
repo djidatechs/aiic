@@ -66,7 +66,7 @@ const select_schema: z.ZodType<any> = z.lazy(() =>
 
   const order_schema: z.ZodType<any> = z.lazy(() => 
     z.record(
-      z.union([z.enum(["asc", "desc"]), select_schema])
+      z.union([z.enum(["asc", "desc"]), order_schema])
     ))
 
 const workinghours_commun_schema = z.object({

@@ -20,7 +20,10 @@ export async function GET(req: NextRequest) {
   try {
     const queryParams = req.nextUrl.searchParams;
     const params = parseSearchParams(queryParams)
+
+    
     const validatedParams = workinghours_get_filter_schema.safeParse(params);
+    
     if (!validatedParams.success) {
       console.log(validatedParams.error)
       return NextResponse.json({
@@ -29,7 +32,6 @@ export async function GET(req: NextRequest) {
         errors: validatedParams.error?.errors.map((err) => err.message) || [],
       }, { status: 400 });
     }
-  
     const page = parseInt(validatedParams.data?.page|| '1');
     const limit = parseInt(validatedParams.data?.limit || '10');
     const skip = (page - 1) * limit;
@@ -52,12 +54,13 @@ export async function GET(req: NextRequest) {
     if (validatedParams.data?.select) 
       select = Object.fromEntries(Object.entries(validatedParams.data?.select).map(([key, value]) => [key, value]))    
     else {
-      select = {appointment:{select:{id:true, payment:true} }}
+      select = {appointment:{select:{id:true , created_At : true , payment:true} }}
        Object.keys(prisma.workinghours.fields).map(field=>select[field] = true)
       //  Object.keys(prisma.payment.fields).map(field=>select["appointment"]["select"][field] = true)
       }
 
     let orderBy: any;
+    
     if (validatedParams.data?.order) {
       const orders = validatedParams.data?.order
       orderBy = Object.keys(orders).map((key)=>({[key]:orders[key]}))

@@ -25,7 +25,7 @@
       "processing_appointment": "Processing your appointment...",
   "appointment_success": "Appointment successfully created, we will transfer you to another page, please wait.",
   "appointment_error": "Error creating the appointment",
-  "oops": "Oops!",
+  "oops": "Something went wrong ! Please make sure you are setting up everything correctly",
   "last_name": "Last Name",
   "first_name": "First Name",
   "age": "Age",

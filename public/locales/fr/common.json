@@ -23,7 +23,7 @@
     "processing_appointment": "Traitement de votre rendez-vous...",
     "appointment_success": "Rendez-vous créé avec succès, nous vous transférerons vers une autre page, veuillez patienter.",
     "appointment_error": "Erreur lors de la création du rendez-vous",
-    "oops": "Ops!",
+    "oops": "Quelque chose s'est mal passé ! Veuillez vous assurer que vous avez tout configuré correctement",
     "last_name": "Nom",
     "first_name": "Prenom",
     "age": "Age",
