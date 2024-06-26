@@ -1,39 +1,53 @@
-import { NextRequest, NextResponse } from "next/server"
-import { withAuth } from "next-auth/middleware"
+import { NextRequest, NextResponse } from "next/server";
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 
-
-
-const allowedOrigins = ["https://aiic.djidax.com" , "http://localhost:3000"]
+const allowedOrigins = ["https://aiic.djidax.com", "http://localhost:3000"];
 const nullconfig = {
-    status: 400,
-    statusText: "Bad Request",
-    headers: {
-        'Content-Type': 'text/plain'
-    }
+  status: 400,
+  statusText: "Bad Request",
+  headers: {
+    'Content-Type': 'text/plain',
+  },
+};
+
+async function generalMiddleware(request: NextRequest) {
+  console.log("hi", request.headers.get('x-internal-request'));
+
+  const origin = request.nextUrl.origin;
+
+  console.log({ f: request.nextUrl.pathname });
+
+  if (!origin || !allowedOrigins.includes(origin)) {
+    return new NextResponse(null, nullconfig);
+  }
+
+  return NextResponse.next();
 }
 
-export async function middleware(request: NextRequest, event:any) {
-
-    const origin = request.nextUrl.origin
-    console.log({origin})
-    if (!origin || !allowedOrigins.includes(origin)) {
-        return new NextResponse(null, nullconfig)
-        
+const adminMiddleware = withAuth(
+  async function adminMiddleware(request: NextRequest) {
+    // Additional admin-specific logic can go here
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => token?.isAdmin as boolean,
+    },
+    pages: {
+        signIn : "/admin/auth",
+        signOut : "/admin/auth",
+        error : "/admin/auth"
     }
-    if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
-        withAuth( function middleware(req) {},
-            {
-              callbacks: {
-                authorized: ({ token }) => token?.isAdmin as boolean,
-              },
-            }
-          )
-    }
+  }
+);
 
-
-    return NextResponse.next()
+export function middleware(request: NextRequestWithAuth,event:any) {
+  if (request.nextUrl.pathname.startsWith('/admin') || request.nextUrl.pathname.startsWith('/api/admin')) {
+    return adminMiddleware(request, event );
+  }
+  return generalMiddleware(request);
 }
 
 export const config = {
-    matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-}
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
