@@ -14,7 +14,7 @@ import { draftToMarkdown } from "markdown-draft-js";
 import { DatePicker } from "@/components/shared/DatePicker";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from 'next/navigation';
-import { lazy, Suspense, useEffect,  } from "react";
+import { lazy, Suspense, useEffect  } from "react";
 const WilayasSelect = lazy(() => import("@/components/shared/WilayaSelect"));
 
 
@@ -67,6 +67,14 @@ const MyForm = () => {
       });
     }
   }
+  useEffect(()=>{
+    toast({
+      className: "bg-green-600 text-white font-semiBold",
+      title : 'جميع خدماتنا مشغولة',
+      description: "لا توجد حاليا مواعيد متاحة، شكرا لجميع من راسلنا، سيتم فتح مواعيد اخرى قريبا، ترقبوا الجديد في صفحتنا على الفيسبوك"
+    });
+
+  },[])
 
   return (
     <Form {...form}>
