@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -66,16 +67,18 @@ export const GET = async () => {
       }
     }
 
-    const res = {
+    const data = {
       filled_days: filledDays,
       maybe_filled_days: filledNoPaymentDays,
       allowed_days: availableDays,
     };
 
-    return new Response(JSON.stringify(res), { status: 200 });
+    // return new Response(JSON.stringify(res), { status: 200 });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
     console.log(error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch days status' }), { status: 500 });
+    // return new Response(JSON.stringify({ error: 'Failed to fetch days status' }), { status: 500 });
+    return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 };
 

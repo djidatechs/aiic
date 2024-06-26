@@ -66,7 +66,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
       try {
         const res = await fetch('/api/getDaysStatus');
         if (!res.ok) throw new Error('Failed to fetch days status');
-        const data = await res.json();
+        const {data} = await res.json();
         const days_arr = Object.keys(data).map(key => data[key]?.map((obj: any) => obj.day)) as any;
         const days = {
           filled_days: days_arr[0],
@@ -90,7 +90,7 @@ export function DatePicker({ form, name, placeholder }: DatePickerProps) {
         try {
           const res = await fetch(`/api/getWorkingHoursByDay?date=${toLocalISOString(selectedDay)}`);
           if (!res.ok) throw new Error('Failed to fetch working hours');
-          const data = await res.json();
+          const {data} = await res.json();
           setWorkingHours(data);
         } catch (error) {
           console.error(error);

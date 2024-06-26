@@ -1,5 +1,6 @@
 import { localetime_options } from '@/lib/utils';
 import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -35,7 +36,7 @@ export const GET = async (req: Request) => {
     });
     
     
-    const res = workingHours.map((wh) =>{ 
+    const data = workingHours.map((wh) =>{ 
       let date = new Date(wh.date);
       return ({
       id: wh.id,
@@ -48,17 +49,17 @@ export const GET = async (req: Request) => {
       : false
     })})
 
-    res.sort((a, b) => {
+    data.sort((a, b) => {
       const [aHours, aMinutes] = a.startTime.split(':').map(Number);
       const [bHours, bMinutes] = b.startTime.split(':').map(Number);
       return aHours - bHours || aMinutes - bMinutes;
     });
 
 
-        return new Response(JSON.stringify(res), { status: 200 });
+      return NextResponse.json({ success: true, data });
+        
   } catch (error) {
-    
-        return new Response(JSON.stringify({ error: 'Failed to fetch working hours' }), { status: 500 });
+      return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 };
 

@@ -11,6 +11,9 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
+  pages : {
+    signIn : "/admin/auth",
+  },
 
   callbacks: {
     async jwt({ token, user }) {

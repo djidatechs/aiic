@@ -47,7 +47,8 @@
   "disponible": "Available",
   "en_ligne_seulement": "Online Only",
   "pris_sans_confirmation": "Taken Without Confirmation",
-  "pris": "Taken",
+  "pris": "Unavailable", 
+  
   "still_loading":"Still loading ...",
   "online": "Online",
 
