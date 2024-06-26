@@ -11,7 +11,7 @@ const Home =  () => {
     },
   })
   if (status === "loading") {
-    return "Loading"
+    return <div className="w-screen flex font-bold text-center"></div>
   }
 
     return (

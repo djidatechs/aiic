@@ -13,6 +13,8 @@ export const authOptions = {
   },
   pages : {
     signIn : "/admin/auth",
+    signOut : "/admin/auth",
+    error : "/admin/auth",
   },
 
   callbacks: {

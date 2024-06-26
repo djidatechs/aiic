@@ -46,7 +46,6 @@ const SignInForm = () => {
           title: "User has been logged in successfully",
         });
         router.push("/admin");
-        router.refresh();
       }
     } catch (error) {
       toast({

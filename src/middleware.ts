@@ -11,11 +11,9 @@ const nullconfig = {
 };
 
 async function generalMiddleware(request: NextRequest) {
-  console.log("hi", request.headers.get('x-internal-request'));
 
   const origin = request.nextUrl.origin;
 
-  console.log({ f: request.nextUrl.pathname });
 
   if (!origin || !allowedOrigins.includes(origin)) {
     return new NextResponse(null, nullconfig);
