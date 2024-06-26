@@ -59,11 +59,17 @@ export const GET = async () => {
       }
 
       if (hasAvailable) {
-        availableDays.push({ day: date, workingHoursInstances: hours });
+        availableDays.push({ day: date, 
+          // workingHoursInstances: hours 
+        });
       } else if (hasNoPayment) {
-        filledNoPaymentDays.push({ day: date, workingHoursInstances: hours });
+        filledNoPaymentDays.push({ day: date, 
+          // workingHoursInstances: hours 
+        });
       } else {
-        filledDays.push({ day: date, workingHoursInstances: hours });
+        filledDays.push({ day: date, 
+          // workingHoursInstances: hours 
+        });
       }
     }
 
