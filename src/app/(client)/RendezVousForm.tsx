@@ -67,14 +67,6 @@ const MyForm = () => {
       });
     }
   }
-  useEffect(()=>{
-    toast({
-      className: "bg-blue-600 text-white font-bold text-xl text-right",
-      title : "مرحبا بكم جميعا",
-      description: 'لا توجد مواعيد حاليا، سيتم فتح المواعيد في القريب العاجل، إبقوا مترقبين، و شكرا لتفهمكم',
-
-    });
-  },[])
 
   return (
     <Form {...form}>
