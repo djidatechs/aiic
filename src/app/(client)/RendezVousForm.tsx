@@ -69,7 +69,7 @@ const MyForm = () => {
   }
   useEffect(()=>{
     toast({
-      className: "bg-green-600 text-white font-semiBold",
+      className: "bg-blue-600 text-white font-semiBold text-xl text-right",
       title : 'جميع خدماتنا مشغولة',
       description: "لا توجد حاليا مواعيد متاحة، شكرا لجميع من راسلنا، سيتم فتح مواعيد اخرى قريبا، ترقبوا الجديد في صفحتنا على الفيسبوك"
     });
