@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   
   title: "AIIC",
   description:"Assistance d'Immigration et d'Intégration au Canada",
-  metadataBase: new URL("https://aiic.djidax.coms"),
+  metadataBase: new URL("https://aiic.djidax.com"),
   openGraph : {
     type : "website",
     countryName : "Algeria",
