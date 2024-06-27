@@ -15,12 +15,13 @@ export const metadata: Metadata = {
   
   title: "AIIC",
   description:"Assistance d'Immigration et d'Intégration au Canada",
+  metadataBase: new URL("https://aiic.djidax.coms"),
   openGraph : {
     type : "website",
     countryName : "Algeria",
     description : "Assistance d'Immigration et d'Intégration au Canada",
     siteName : "AIIC DJIDA X",
-    url : "https://aiic.djidax.com/",
+    url : "https://aiic.djidax.com",
     images : opengraphImage.src
 
   }
@@ -30,7 +31,8 @@ export default  function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) 
+{
   const locale = getLocale();
   return (
     <html lang={locale}>
