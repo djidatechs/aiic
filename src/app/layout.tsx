@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import {getLocale} from '@/lib/i18n/server';
 import {LocaleProvider} from '@/components/hooks/local';
 import opengraphImage  from '@/../public/og.png'
-
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 const rubic = Rubik({subsets:["arabic"]});
@@ -43,7 +43,7 @@ export default  function RootLayout({
           {children}
           <Toaster />
       </LocaleProvider>
-        
+      <Analytics/>        
       </body>
     </html>
   );
