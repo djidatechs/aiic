@@ -4,16 +4,26 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import {getLocale} from '@/lib/i18n/server';
 import {LocaleProvider} from '@/components/hooks/local';
+import opengraphImage  from '@/../public/opengraphLogoPhoto.jpeg'
 
 
 const inter = Inter({ subsets: ["latin"] });
 const rubic = Rubik({subsets:["arabic"]});
 
+
 export const metadata: Metadata = {
   
   title: "AIIC",
-  description:
-    "Client platform.",
+  description:"Assistance d'Immigration et d'Intégration au Canada",
+  openGraph : {
+    type : "website",
+    countryName : "Algeria",
+    description : "Assistance d'Immigration et d'Intégration au Canada",
+    siteName : "AIIC DJIDA X",
+    url : "https://aiic.djidax.com/",
+    images : opengraphImage.src
+
+  }
 };
 
 export default  function RootLayout({
