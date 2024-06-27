@@ -40,12 +40,12 @@ const SignInForm = () => {
           title: "Username or Password Invalid",
         });
       }
-      if (result?.ok) {
+      else {
         toast({
           className: "bg-green-600 text-md text-white font-medium",
           title: "User has been logged in successfully",
         });
-        router.push("/admin");
+        router.refresh()
       }
     } catch (error) {
       toast({

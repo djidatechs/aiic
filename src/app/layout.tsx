@@ -4,7 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import {getLocale} from '@/lib/i18n/server';
 import {LocaleProvider} from '@/components/hooks/local';
-import opengraphImage  from '@/../public/opengraphLogoPhoto.jpeg'
+import opengraphImage  from '@/../public/og.png'
 
 
 const inter = Inter({ subsets: ["latin"] });
