@@ -62,7 +62,7 @@ function Calendar({
     <div className="scale-75 sm:scale-75 md:scale-100">
     <DayPicker
        
-      defaultMonth={new Date(today.getFullYear(), today.getMonth() + 1, 1)}
+      defaultMonth={new Date(today.getFullYear(), today.getMonth() , 1)}
       showOutsideDays={showOutsideDays}
       locale={local_format[local]} // Set the locale to French
       className={cn("p-3 ", className)}
